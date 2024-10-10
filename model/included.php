@@ -47,6 +47,23 @@ class Included
         return false;
     }
 
+    public function update()
+    {
+        $query = 'UPDATE Include SET productId = :productId WHERE cartId = :cartId';
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':cartId', $this->cartId);
+        $stmt->bindParam(':productId', $this->productId);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        printf("Error: %s.\n", $stmt->error);
+
+        return false;
+    }
+
     public function delete()
     {
         $query = 'DELETE FROM Include WHERE cartId = :cartId AND productId = :productId';
