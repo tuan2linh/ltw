@@ -1,0 +1,168 @@
+-- Create the database
+CREATE DATABASE dbshop;
+USE dbshop;
+
+-- Create the Member table
+CREATE TABLE Member (
+    memberId INT PRIMARY KEY,
+    username VARCHAR(50),
+    password VARCHAR(50),
+    fullName VARCHAR(100),
+    birth DATE,
+    phoneNumber VARCHAR(15)
+);
+
+-- Create the Administrator table
+CREATE TABLE Administrator (
+    adminId INT PRIMARY KEY,
+    username VARCHAR(50),
+    password VARCHAR(50),
+    fullName VARCHAR(100),
+    birth DATE,
+    phoneNumber VARCHAR(15)
+);
+
+-- Create the AdminActionHistory table
+CREATE TABLE AdminAction_History (
+    actionId INT PRIMARY KEY,
+    adminId INT,
+    action TEXT
+);
+
+-- Create the MemberPhoneNumber table
+CREATE TABLE Member_Phone_Number (
+    memberId INT,
+    phoneNumberId INT,
+    phoneNumber VARCHAR(15),
+    PRIMARY KEY (memberId, phoneNumberId)
+);
+
+-- Create the MemberAddress table
+CREATE TABLE Member_Address (
+    memberId INT,
+    addressId INT,
+    address VARCHAR(255),
+    PRIMARY KEY (memberId, addressId)
+);
+
+-- Create the Cart table
+CREATE TABLE Cart (
+    cartId INT PRIMARY KEY,
+    createDay DATE,
+    memberId INT
+);
+
+-- Create the Include table (association between Cart and Product)
+CREATE TABLE Include (
+    cartId INT,
+    productId INT,
+    PRIMARY KEY (cartId, productId)
+);
+
+-- Create the Product table
+CREATE TABLE Product (
+    productId INT PRIMARY KEY,
+    productName VARCHAR(100),
+    price DECIMAL(10, 2),
+    image VARCHAR(255),
+    description TEXT
+);
+
+-- Create the Order table
+CREATE TABLE `Order` (
+    orderId INT PRIMARY KEY,
+    payStatus VARCHAR(50),
+    payDay DATE,
+    shipStatus VARCHAR(50),
+    address VARCHAR(255),
+    phoneNumber VARCHAR(15),
+    cartId INT
+);
+
+-- Create the Payment table
+CREATE TABLE Payment (
+    memberId INT,
+    cartId INT,
+    orderId INT,
+    PRIMARY KEY (memberId, cartId, orderId)
+);
+
+-- Create the ViewHistory table
+CREATE TABLE View_History (
+    memberId INT,
+    productId INT,
+    time TIMESTAMP,
+    PRIMARY KEY (memberId, productId)
+);
+
+-- Create the Feedback table
+CREATE TABLE Feedback (
+    memberId INT,
+    productId INT,
+    comment TEXT,
+    rating INT,
+    PRIMARY KEY (memberId, productId)
+);
+
+-- Alter the tables to add foreign keys
+
+-- Foreign key for Member table referencing Cart
+ALTER TABLE Cart
+ADD CONSTRAINT fk_memberId
+FOREIGN KEY (memberId) REFERENCES Member(memberId);
+
+-- Foreign key for AdminActionHistory referencing Administrator
+ALTER TABLE AdminAction_History
+ADD CONSTRAINT fk_admin_action_history_admin
+FOREIGN KEY (adminId) REFERENCES Administrator(adminId);
+
+-- Foreign key for MemberPhoneNumber referencing Member
+ALTER TABLE Member_Phone_Number
+ADD CONSTRAINT fk_member_phone_number_member
+FOREIGN KEY (memberId) REFERENCES Member(memberId);
+
+-- Foreign key for MemberAddress referencing Member
+ALTER TABLE Member_Address
+ADD CONSTRAINT fk_member_address_member
+FOREIGN KEY (memberId) REFERENCES Member(memberId);
+
+-- Foreign key for Include referencing Cart and Product
+ALTER TABLE Include
+ADD CONSTRAINT fk_include_cart
+FOREIGN KEY (cartId) REFERENCES Cart(cartId),
+ADD CONSTRAINT fk_include_product
+FOREIGN KEY (productId) REFERENCES Product(productId);
+
+-- Foreign key for Order referencing Cart
+ALTER TABLE `Order`
+ADD CONSTRAINT fk_order_cart
+FOREIGN KEY (cartId) REFERENCES Cart(cartId);
+
+-- Foreign key for Payment referencing Member, Cart, and Order
+ALTER TABLE Payment
+ADD CONSTRAINT fk_payment_member
+FOREIGN KEY (memberId) REFERENCES Member(memberId),
+ADD CONSTRAINT fk_payment_cart
+FOREIGN KEY (cartId) REFERENCES Cart(cartId),
+ADD CONSTRAINT fk_payment_order
+FOREIGN KEY (orderId) REFERENCES `Order`(orderId);
+
+-- Foreign key for ViewHistory referencing Member and Product
+ALTER TABLE View_History
+ADD CONSTRAINT fk_view_history_member
+FOREIGN KEY (memberId) REFERENCES Member(memberId),
+ADD CONSTRAINT fk_view_history_product
+FOREIGN KEY (productId) REFERENCES Product(productId);
+
+-- Foreign key for Feedback referencing Member and Product
+ALTER TABLE Feedback
+ADD CONSTRAINT fk_feedback_member
+FOREIGN KEY (memberId) REFERENCES Member(memberId),
+ADD CONSTRAINT fk_feedback_product
+FOREIGN KEY (productId) REFERENCES Product(productId);
+
+
+-- ================================================================
+
+
+

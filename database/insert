@@ -1,0 +1,79 @@
+-- Insert into Member
+INSERT INTO Member (memberId, username, password, fullName, birth, phoneNumber)
+VALUES 
+(1, 'johndoe', 'password123', 'John Doe', '1990-05-15', '1234567890'),
+(2, 'janedoe', 'password456', 'Jane Doe', '1992-08-22', '0987654321');
+
+-- Insert into Administrator
+INSERT INTO Administrator (adminId, username, password, fullName, birth, phoneNumber)
+VALUES 
+(1, 'admin01', 'adminpass1', 'Admin One', '1985-02-17', '1111111111'),
+(2, 'admin02', 'adminpass2', 'Admin Two', '1987-07-11', '2222222222');
+
+-- Insert into AdminActionHistory
+INSERT INTO AdminAction_History (actionId, adminId, action)
+VALUES 
+(1, 1, 'Updated product prices'),
+(2, 2, 'Added new products'),
+(3, 1, 'Removed a user account');
+
+-- Insert into MemberPhoneNumber
+INSERT INTO Member_Phone_Number (memberId, phoneNumberId, phoneNumber)
+VALUES 
+(1, 1, '1234567890'),
+(2, 1, '0987654321'),
+(1, 2, '1122334455');
+
+-- Insert into MemberAddress
+INSERT INTO Member_Address (memberId, addressId, address)
+VALUES 
+(1, 1, '123 Main St, City A'),
+(2, 1, '456 Elm St, City B'),
+(1, 2, '789 Oak St, City C');
+
+-- Insert into Cart
+INSERT INTO Cart (cartId, createDay, memberId)
+VALUES 
+(1, '2024-10-01', 1),
+(2, '2024-10-05', 2);
+
+-- Insert into Product
+INSERT INTO Product (productId, productName, price, image, description)
+VALUES 
+(1, 'Product A', 19.99, 'image1.jpg', 'Description of product A'),
+(2, 'Product B', 29.99, 'image2.jpg', 'Description of product B'),
+(3, 'Product C', 39.99, 'image3.jpg', 'Description of product C');
+
+-- Insert into Include
+INSERT INTO Include (cartId, productId)
+VALUES 
+(1, 1),
+(1, 2),
+(2, 3);
+
+-- Insert into Order
+INSERT INTO "Order" (orderId, payStatus, payDay, shipStatus, address, phoneNumber, cartId)
+VALUES 
+(1, 'Paid', '2024-10-06', 'Shipped', '123 Main St, City A', '1234567890', 1),
+(2, 'Pending', '2024-10-08', 'Processing', '456 Elm St, City B', '0987654321', 2);
+
+-- Insert into Payment
+INSERT INTO Payment (memberId, cartId, orderId)
+VALUES 
+(1, 1, 1),
+(2, 2, 2);
+
+-- Insert into ViewHistory
+INSERT INTO View_History (memberId, productId, time)
+VALUES 
+(1, 1, '2024-10-02 10:00:00'),
+(1, 2, '2024-10-02 11:00:00'),
+(2, 3, '2024-10-06 09:30:00');
+
+-- Insert into Feedback
+INSERT INTO Feedback (memberId, productId, comment, rating)
+VALUES 
+(1, 1, 'Great product!', 5),
+(1, 2, 'Good value for the price.', 4),
+(2, 3, 'Not as expected.', 2);
+

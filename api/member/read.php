@@ -12,7 +12,7 @@ $result = $member->read();
 
 if ($result->rowCount() > 0) {
     $member_arr = array();
-    $member_arr['member'] = array();
+    $member_arr['members'] = array();
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
@@ -26,7 +26,7 @@ if ($result->rowCount() > 0) {
             'phoneNumber' => $phoneNumber
         );
 
-        array_push($member_arr['member'], $member_item);
+        array_push($member_arr['members'], $member_item);
     }
 
     echo json_encode($member_arr);
