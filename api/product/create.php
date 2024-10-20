@@ -15,7 +15,7 @@ $product = new Product($connect);
 $data = json_decode(file_get_contents("php://input"));
 
 $product->productId = $data->productId;
-$product->name = $data->productName;
+$product->productName = $data->productName;
 $product->price = $data->price;
 $product->description = $data->description;
 $product->image = $data->image;

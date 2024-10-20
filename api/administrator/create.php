@@ -17,7 +17,7 @@ $data = json_decode(file_get_contents("php://input"));
 $administrator->adminId = $data->adminId;
 $administrator->username = $data->username;
 $administrator->password = $data->password;
-$administrator->fullname = $data->fullname;
+$administrator->fullName = $data->fullName;
 $administrator->birth = $data->birth;
 $administrator->phoneNumber = $data->phoneNumber;
 

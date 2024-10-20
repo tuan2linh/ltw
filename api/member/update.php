@@ -17,7 +17,7 @@ $data = json_decode(file_get_contents("php://input"));
 $member->memberId = $data->memberId;
 $member->username = $data->username;
 $member->password = $data->password;
-$member->fullname = $data->fullname;
+$member->fullName = $data->fullName;
 $member->birth = $data->birth;
 $member->phoneNumber = $data->phoneNumber;
 

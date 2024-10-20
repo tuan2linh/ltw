@@ -54,7 +54,7 @@ class Member
         $stmt->bindParam(':memberId', $this->memberId);
         $stmt->bindParam(':username', $this->username);
         $stmt->bindParam(':password', $this->password);
-        $stmt->bindParam(':fullName', $this->fullname);
+        $stmt->bindParam(':fullName', $this->fullName);
         $stmt->bindParam(':birth', $this->birth);
         $stmt->bindParam(':phoneNumber', $this->phoneNumber);
 
@@ -81,7 +81,7 @@ class Member
         $stmt->bindParam(':memberId', $this->memberId);
         $stmt->bindParam(':username', $this->username);
         $stmt->bindParam(':password', $this->password);
-        $stmt->bindParam(':fullName', $this->fullname);
+        $stmt->bindParam(':fullName', $this->fullName);
         $stmt->bindParam(':birth', $this->birth);
         $stmt->bindParam(':phoneNumber', $this->phoneNumber);
 

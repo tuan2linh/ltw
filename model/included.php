@@ -70,7 +70,7 @@ class Included
         $stmt = $this->conn->prepare($query);
 
         $this->cartId = htmlspecialchars(strip_tags($this->cartId));
-        $this->productId = htmlspecialchars(strip_tags($this->productId));
+        $this->productId = htmlspecialchars(strip_tags($this->productId));  
 
         $stmt->bindParam(':cartId', $this->cartId);
         $stmt->bindParam(':productId', $this->productId);

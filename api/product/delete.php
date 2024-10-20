@@ -9,7 +9,7 @@ $connect = $db->connect();
 
 $product = new Product($connect);
 
-$product->memberId = isset($_GET['memberId']) ? $_GET['memberId'] : die();
+$product->productId = isset($_GET['productId']) ? $_GET['productId'] : die();
 
 $product->delete();
 

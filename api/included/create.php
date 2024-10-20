@@ -17,7 +17,7 @@ $data = json_decode(file_get_contents("php://input"));
 $included->cartId = $data->cartId;
 $included->productId = $data->productId;
 
-if ($include->create()) {
+if ($included->create()) {
     echo json_encode(
         array('message' => 'Include created')
     );
