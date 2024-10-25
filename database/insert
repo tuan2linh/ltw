@@ -52,7 +52,7 @@ VALUES
 (2, 3);
 
 -- Insert into Order
-INSERT INTO "Order" (orderId, payStatus, payDay, shipStatus, address, phoneNumber, cartId)
+INSERT INTO `Order` (orderId, payStatus, payDay, shipStatus, address, phoneNumber, cartId)
 VALUES 
 (1, 'Paid', '2024-10-06', 'Shipped', '123 Main St, City A', '1234567890', 1),
 (2, 'Pending', '2024-10-08', 'Processing', '456 Elm St, City B', '0987654321', 2);
@@ -76,4 +76,9 @@ VALUES
 (1, 1, 'Great product!', 5),
 (1, 2, 'Good value for the price.', 4),
 (2, 3, 'Not as expected.', 2);
+
+-- Insert into token
+INSERT INTO token (id, memberId, adminId, token, expiryTime)
+VALUES 
+(1, NULL, 1, '  ', '2030-10-15 12:00:00');
 

@@ -4,7 +4,7 @@ USE dbshop;
 
 -- Create the Member table
 CREATE TABLE Member (
-    memberId INT PRIMARY KEY,
+    memberId INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50),
     password VARCHAR(50),
     fullName VARCHAR(100),
@@ -14,7 +14,7 @@ CREATE TABLE Member (
 
 -- Create the Administrator table
 CREATE TABLE Administrator (
-    adminId INT PRIMARY KEY,
+    adminId INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50),
     password VARCHAR(50),
     fullName VARCHAR(100),
@@ -103,6 +103,24 @@ CREATE TABLE Feedback (
     rating INT,
     PRIMARY KEY (memberId, productId)
 );
+
+-- Create the Token table
+CREATE TABLE Token (
+    id INT AUTO_INCREMENT,
+    memberId INT,
+    adminId INT,
+    token VARCHAR(255),
+    expiryTime TIMESTAMP,
+    PRIMARY KEY (id)
+);
+-- Alter the Token table to add foreign key
+ALTER TABLE Token
+ADD CONSTRAINT fk_token_member
+FOREIGN KEY (memberId) REFERENCES Member(memberId);
+
+ALTER TABLE Token
+ADD CONSTRAINT fk_token_admin
+FOREIGN KEY (adminId) REFERENCES Administrator(adminId);
 
 -- Alter the tables to add foreign keys
 
