@@ -39,10 +39,38 @@ VALUES
 
 -- Insert into Product
 INSERT INTO Product (productId, productName, price, image, description)
-VALUES 
-(1, 'Product A', 19.99, 'image1.jpg', 'Description of product A'),
-(2, 'Product B', 29.99, 'image2.jpg', 'Description of product B'),
-(3, 'Product C', 39.99, 'image3.jpg', 'Description of product C');
+VALUES
+(1, 'Sáo Trúc A', 15.99, 'https://saotrucdaoduy.com/wp-content/uploads/2022/07/z3532944604603_c7f4c10d5f37d4c987fa30260fa6620c.jpg', 'Sáo trúc loại A, âm thanh rõ ràng.'),
+(2, 'Sáo Trúc B', 18.49, 'https://saotrucdaoduy.com/wp-content/uploads/2022/07/z3532942324485_165582f4ee548f8806ec4b9179c05e67.jpg', 'Sáo trúc loại B, âm thanh trong trẻo.'),
+(3, 'Sáo Trúc C', 20.99, 'https://saotrucdaoduy.com/wp-content/uploads/2022/07/z3532933467119_e3e8bd3d6a49b9cd74e0b93684605b9e.jpg', 'Sáo trúc loại C, thiết kế tinh xảo.'),
+(4, 'Sáo Trúc D', 22.99, 'https://saotrucdaoduy.com/wp-content/uploads/2021/11/2021_11_20_14_41_IMG_6716.jpg', 'Sáo trúc loại D, âm thanh ấm áp.'),
+(5, 'Sáo Trúc E', 17.49, 'https://saotrucdaoduy.com/wp-content/uploads/2021/06/z2584514545497_c1b473464a406373d93bc757c06a6772-1.jpg', 'Sáo trúc loại E, thiết kế đơn giản.'),
+(6, 'Sáo Trúc F', 19.99, 'https://saotrucdaoduy.com/wp-content/uploads/2023/10/z4752907868779_9984f1bb72aecc85280c12b67285a506.jpg', 'Sáo trúc loại F, kiểu dáng thanh lịch.'),
+(7, 'Sáo Trúc G', 21.49, 'https://saotrucdaoduy.com/wp-content/uploads/2023/09/z4693578216819_8577b7657bf3edd8da4ab28197e6d2e1.jpg', 'Sáo trúc loại G, âm thanh mạnh mẽ.'),
+(8, 'Sáo Trúc H', 16.99, 'https://saotrucdaoduy.com/wp-content/uploads/2021/01/z3037624443887_d2730a0540e04ced821525cb3bcf14cf-scaled.jpg', 'Sáo trúc loại H, thiết kế nhẹ nhàng.'),
+(9, 'Sáo Trúc I', 24.99, 'https://saotrucdaoduy.com/wp-content/uploads/2021/01/z3037624435429_c7611bac80c8f67b9294c51afaa0aac9-scaled.jpg', 'Sáo trúc loại I, chất liệu cao cấp.'),
+(10, 'Sáo Trúc J', 18.79, 'https://saotrucdaoduy.com/wp-content/uploads/2020/02/z3030993965290_89e9f0d5d6c7833436a688e30c689e79-scaled.jpg', 'Sáo trúc loại J, âm thanh sâu lắng.'),
+(11, 'Sáo Trúc K', 14.99, 'https://saotrucdaoduy.com/wp-content/uploads/2022/07/z3532944604603_c7f4c10d5f37d4c987fa30260fa6620c.jpg', 'Sáo trúc loại K, âm sắc cao vút.'),
+(12, 'Sáo Trúc L', 17.49, 'https://saotrucdaoduy.com/wp-content/uploads/2022/07/z3532942324485_165582f4ee548f8806ec4b9179c05e67.jpg', 'Sáo trúc loại L, thiết kế mạnh mẽ.'),
+(13, 'Sáo Trúc M', 22.99, 'https://saotrucdaoduy.com/wp-content/uploads/2022/07/z3532933467119_e3e8bd3d6a49b9cd74e0b93684605b9e.jpg', 'Sáo trúc loại M, chất liệu gỗ tự nhiên.'),
+(14, 'Sáo Trúc N', 16.49, 'https://saotrucdaoduy.com/wp-content/uploads/2021/11/2021_11_20_14_41_IMG_6716.jpg', 'Sáo trúc loại N, thiết kế cổ điển.'),
+(15, 'Sáo Trúc O', 19.99, 'https://saotrucdaoduy.com/wp-content/uploads/2021/06/z2584514545497_c1b473464a406373d93bc757c06a6772-1.jpg', 'Sáo trúc loại O, phù hợp cho người mới bắt đầu.'),
+(16, 'Sáo Trúc P', 23.49, 'https://saotrucdaoduy.com/wp-content/uploads/2023/10/z4752907868779_9984f1bb72aecc85280c12b67285a506.jpg', 'Sáo trúc loại P, âm thanh tinh tế.'),
+(17, 'Sáo Trúc Q', 25.99, 'https://saotrucdaoduy.com/wp-content/uploads/2023/09/z4693578216819_8577b7657bf3edd8da4ab28197e6d2e1.jpg', 'Sáo trúc loại Q, phong cách hiện đại.'),
+(18, 'Sáo Trúc R', 18.49, 'https://saotrucdaoduy.com/wp-content/uploads/2021/01/z3037624443887_d2730a0540e04ced821525cb3bcf14cf-scaled.jpg', 'Sáo trúc loại R, âm thanh truyền cảm.'),
+(19, 'Sáo Trúc S', 21.99, 'https://saotrucdaoduy.com/wp-content/uploads/2021/01/z3037624435429_c7611bac80c8f67b9294c51afaa0aac9-scaled.jpg', 'Sáo trúc loại S, thiết kế tỉ mỉ.'),
+(20, 'Sáo Trúc T', 15.49, 'https://saotrucdaoduy.com/wp-content/uploads/2020/02/z3030993965290_89e9f0d5d6c7833436a688e30c689e79-scaled.jpg', 'Sáo trúc loại T, âm sắc rõ ràng.'),
+(21, 'Sáo Trúc U', 24.99, 'https://saotrucdaoduy.com/wp-content/uploads/2022/07/z3532944604603_c7f4c10d5f37d4c987fa30260fa6620c.jpg', 'Sáo trúc loại U, chất liệu bền bỉ.'),
+(22, 'Sáo Trúc V', 19.49, 'https://saotrucdaoduy.com/wp-content/uploads/2022/07/z3532942324485_165582f4ee548f8806ec4b9179c05e67.jpg', 'Sáo trúc loại V, âm thanh trung tính.'),
+(23, 'Sáo Trúc W', 18.99, 'https://saotrucdaoduy.com/wp-content/uploads/2022/07/z3532933467119_e3e8bd3d6a49b9cd74e0b93684605b9e.jpg', 'Sáo trúc loại W, chất liệu tre cao cấp.'),
+(24, 'Sáo Trúc X', 21.49, 'https://saotrucdaoduy.com/wp-content/uploads/2021/11/2021_11_20_14_41_IMG_6716.jpg', 'Sáo trúc loại X, kiểu dáng thanh nhã.'),
+(25, 'Sáo Trúc Y', 23.99, 'https://saotrucdaoduy.com/wp-content/uploads/2021/06/z2584514545497_c1b473464a406373d93bc757c06a6772-1.jpg', 'Sáo trúc loại Y, âm sắc êm dịu.'),
+(26, 'Sáo Trúc Z', 20.99, 'https://saotrucdaoduy.com/wp-content/uploads/2023/10/z4752907868779_9984f1bb72aecc85280c12b67285a506.jpg', 'Sáo trúc loại Z, phong cách trẻ trung.'),
+(27, 'Sáo Trúc AA', 16.49, 'https://saotrucdaoduy.com/wp-content/uploads/2023/09/z4693578216819_8577b7657bf3edd8da4ab28197e6d2e1.jpg', 'Sáo trúc loại AA, phù hợp cho biểu diễn.'),
+(28, 'Sáo Trúc AB', 17.99, 'https://saotrucdaoduy.com/wp-content/uploads/2021/01/z3037624443887_d2730a0540e04ced821525cb3bcf14cf-scaled.jpg', 'Sáo trúc loại AB, âm thanh nhẹ nhàng.'),
+(29, 'Sáo Trúc AC', 21.99, 'https://saotrucdaoduy.com/wp-content/uploads/2021/01/z3037624435429_c7611bac80c8f67b9294c51afaa0aac9-scaled.jpg', 'Sáo trúc loại AC, thiết kế chắc chắn.'),
+(30, 'Sáo Trúc AD', 19.49, 'https://saotrucdaoduy.com/wp-content/uploads/2020/02/z3030993965290_89e9f0d5d6c7833436a688e30c689e79-scaled.jpg', 'Sáo trúc loại AD, âm thanh nổi bật.');
+
 
 -- Insert into Include
 INSERT INTO Include (cartId, productId)
