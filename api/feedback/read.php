@@ -3,13 +3,9 @@ header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 include_once '../../config/db.php';
 include_once '../../model/feedback.php';
-include_once '../../middleware/middleware.php';
 
 $db = new db();
 $connect = $db->connect();
-
-$middleware = new Middleware($connect);
-$middleware->checkMember();
 
 $feedback = new Feedback($connect);
 $result = $feedback->read();
@@ -34,6 +30,6 @@ if ($result->rowCount() > 0) {
     echo json_encode($feedback_arr);
 } else {
     echo json_encode(
-        array('message' => 'No feedback found')
+        array('message' => 'Không tìm thấy phản hồi nào')
     );
 }

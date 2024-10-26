@@ -50,11 +50,14 @@ if ($result) {
                     // Add any other user data you want to return
                 )
             ));
+            exit(); // Thêm exit() để kết thúc script sau khi đăng nhập thành công
         } else {
             echo json_encode(array('message' => 'Failed to store token'));
+            exit();
         }
     }
 }
+
 if ($resultAdmin) {
     // Fetch the result as an associative array
     $admin = $resultAdmin->fetch(PDO::FETCH_ASSOC);
@@ -79,13 +82,14 @@ if ($resultAdmin) {
                     // Add any other admin data you want to return
                 )
             ));
+            exit(); // Thêm exit() để kết thúc script sau khi đăng nhập thành công
         } else {
             echo json_encode(array('message' => 'Failed to store token'));
+            exit();
         }
-    } else {
-        echo json_encode(array('message' => 'Invalid username or password'));
     }
-} else {
-    echo json_encode(array('message' => 'Invalid username or password'));
 }
+
+// Nếu không có kết quả nào khớp, trả về thông báo lỗi
+echo json_encode(array('message' => 'Invalid username or password'));
 ?>
