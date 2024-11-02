@@ -30,18 +30,22 @@ class Middleware {
         $token = $this->getTokenFromHeaders();
         if (!$token) {
             echo json_encode(array('message' => 'Token not provided'));
+            return false;
             exit();
         }
 
         if (!$this->verifyToken($token)) {
             echo json_encode(array('message' => 'Invalid or expired token'));
+            return false;
             exit();
         }
 
         if (!$this->isAdmin($token)) {
             echo json_encode(array('message' => 'Not an admin'));
+            return false;
             exit();
         }
+        return true;
     }
     public function checkMember() {
         $token = $this->getTokenFromHeaders();
@@ -55,10 +59,17 @@ class Middleware {
             exit();
         }
 
-        if (!$this->isMember($token) && !$this->isAdmin($token)) {
-            echo json_encode(array('message' => 'Not an admin or member'));
+        if (!$this->isMember($token)) {
+            return false;
+            echo json_encode(array('message' => 'Not an member'));
             exit();
         }
+        return true;
+    }
+
+    public function getId(){
+        $token = $this->getTokenFromHeaders();
+        return $this->authenticate->getId($token);
     }
 
 }

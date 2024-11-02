@@ -80,10 +80,10 @@ VALUES
 (2, 3);
 
 -- Insert into Order
-INSERT INTO `Order` (orderId, payStatus, payDay, shipStatus, address, phoneNumber, cartId)
+INSERT INTO `Order` (orderId, payStatus, dayBooking,Reciever, shipStatus, address, phoneNumber, memberId, cartId)
 VALUES 
-(1, 'Paid', '2024-10-06', 'Shipped', '123 Main St, City A', '1234567890', 1),
-(2, 'Pending', '2024-10-08', 'Processing', '456 Elm St, City B', '0987654321', 2);
+(1, 'Paid', '2024-10-06', 'Ronaldo','Shipped', '123 Main St, City A', '1234567890',1, 1),
+(2, 'Pending', '2024-10-08', 'Messi','Processing', '456 Elm St, City B', '0987654321',2, 2);
 
 -- Insert into Payment
 INSERT INTO Payment (memberId, cartId, orderId)
@@ -110,3 +110,11 @@ INSERT INTO token (id, memberId, adminId, token, expiryTime)
 VALUES 
 (1, NULL, 1, '  ', '2030-10-15 12:00:00');
 
+-- Insert sample data into OrderDirect
+INSERT INTO OrderDirect (orderId, productId, quantity) VALUES 
+(1, 1, 2),  -- Order 1 has 2 of Product 1
+(1, 2, 1),  -- Order 1 has 1 of Product 2
+(1, 3, 3),  -- Order 1 has 3 of Product 3
+(2, 4, 1),  -- Order 2 has 1 of Product 4
+(2, 5, 2),  -- Order 2 has 2 of Product 5
+(2, 6, 1);  -- Order 2 has 1 of Product 6

@@ -24,7 +24,7 @@ CREATE TABLE Administrator (
 
 -- Create the AdminActionHistory table
 CREATE TABLE AdminAction_History (
-    actionId INT PRIMARY KEY,
+    actionId INT AUTO_INCREMENT PRIMARY KEY,
     adminId INT,
     action TEXT
 );
@@ -47,7 +47,7 @@ CREATE TABLE Member_Address (
 
 -- Create the Cart table
 CREATE TABLE Cart (
-    cartId INT PRIMARY KEY,
+    cartId INT AUTO_INCREMENT PRIMARY KEY,
     createDay DATE,
     memberId INT
 );
@@ -61,7 +61,7 @@ CREATE TABLE Include (
 
 -- Create the Product table
 CREATE TABLE Product (
-    productId INT PRIMARY KEY,
+    productId INT AUTO_INCREMENT PRIMARY KEY,
     productName VARCHAR(100),
     price DECIMAL(10, 2),
     image VARCHAR(255),
@@ -70,12 +70,14 @@ CREATE TABLE Product (
 
 -- Create the Order table
 CREATE TABLE `Order` (
-    orderId INT PRIMARY KEY,
+    orderId INT AUTO_INCREMENT PRIMARY KEY,
     payStatus VARCHAR(50),
-    payDay DATE,
+    dayBooking DATE,
+    Reciever VARCHAR(50),
     shipStatus VARCHAR(50),
     address VARCHAR(255),
     phoneNumber VARCHAR(15),
+    memberId INT,
     cartId INT
 );
 
@@ -113,6 +115,23 @@ CREATE TABLE Token (
     expiryTime TIMESTAMP,
     PRIMARY KEY (id)
 );
+
+CREATE TABLE OrderDirect (
+    orderId INT,
+    productId INT,
+    quantity INT DEFAULT 1,
+    PRIMARY KEY (orderId, productId),
+    FOREIGN KEY (orderId) REFERENCES `Order`(orderId),
+    FOREIGN KEY (productId) REFERENCES Product(productId)
+);
+
+-- Add explicit foreign key constraints
+ALTER TABLE OrderDirect
+ADD CONSTRAINT fk_order_direct_order
+FOREIGN KEY (orderId) REFERENCES `Order`(orderId),
+ADD CONSTRAINT fk_order_direct_product
+FOREIGN KEY (productId) REFERENCES Product(productId);
+
 -- Alter the Token table to add foreign key
 ALTER TABLE Token
 ADD CONSTRAINT fk_token_member

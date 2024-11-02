@@ -11,9 +11,11 @@ $connect = $db->connect();
 $middleware = new Middleware($connect);
 $middleware->checkMember();
 
+$memberId = $middleware->getId();
+
 $cart = new Cart($connect);
 
-$cart->cartId = isset($_GET['cartId']) ? $_GET['cartId'] : die();
+$cart->memberId = $memberId;
 
 if ($cart->delete()) {
     echo json_encode(

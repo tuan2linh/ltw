@@ -7,6 +7,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 include_once '../../config/db.php';
 include_once '../../model/authenticate.php';
 date_default_timezone_set('Asia/Ho_Chi_Minh');
+include_once '../../model/cart.php';
 
 $db = new db();
 $connect = $db->connect();
@@ -43,17 +44,26 @@ if ($authenticate->register()) {
 
     // Store the token in the database
     if ($authenticate->storeToken($userId,null, $token, $expiryTime)) {
+        $cart = new Cart($connect);
+        $cart->createDay = date('Y-m-d');
+        $cart->memberId = $userId;
+    
+        $cartCreated = $cart->create();
+        
         echo json_encode(array(
-            'message' => 'User registered successfully',
+            'message' => 'User registered successfully' . ($cartCreated ? ' with cart' : ''),
             'token' => $token,
             'member' => array(
                 'id' => $userId,
                 'username' => $data->username,
                 'fullName' => $data->fullName,
                 'birth' => $data->birth,
-                'phoneNumber' => $data->phoneNumber,
-                // Add any other user data you want to return
-            )
+                'phoneNumber' => $data->phoneNumber
+            ),
+            'cart' => $cartCreated ? array(
+                'memberId' => $userId,
+                'createDay' => date('Y-m-d')
+            ) : null
         ));
     } else {
         echo json_encode(array('message' => 'Failed to store token'));

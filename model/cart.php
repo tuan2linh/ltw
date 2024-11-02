@@ -35,12 +35,11 @@ class Cart
 
     public function create()
     {
-        $query = 'INSERT INTO Cart SET cartId = :cartId, createDay = :createDay, memberId = :memberId';
+        $query = 'INSERT INTO Cart SET createDay = :createDay, memberId = :memberId';
         $stmt = $this->conn->prepare($query);
 
         $this->createDay = htmlspecialchars(strip_tags($this->createDay));
 
-        $stmt->bindParam(':cartId', $this->cartId);
         $stmt->bindParam(':createDay', $this->createDay);
         $stmt->bindParam(':memberId', $this->memberId);
 
@@ -75,12 +74,11 @@ class Cart
 
     public function delete()
     {
-        $query = 'DELETE FROM Cart WHERE cartId = :cartId';
+        $query = 'DELETE FROM Cart WHERE memberId = :memberId';
         $stmt = $this->conn->prepare($query);
 
-        $this->cartId = htmlspecialchars(strip_tags($this->cartId));
 
-        $stmt->bindParam(':cartId', $this->cartId);
+        $stmt->bindParam(':memberId', $this->memberId);
 
         if ($stmt->execute()) {
             return true;
@@ -89,6 +87,15 @@ class Cart
         printf("Error: %s.\n", $stmt->error);
 
         return false;
+    }
+    public function checkExistingCart($memberId) 
+    {
+    $query = 'SELECT cartId FROM Cart WHERE memberId = ?';
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(1, $memberId);
+    $stmt->execute();
+    
+    return $stmt->rowCount() > 0;
     }
 }
 

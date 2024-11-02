@@ -6,7 +6,7 @@ class Member
     public $memberId;
     public $username;
     public $password;
-    public $fullname;
+    public $fullName;
     public $birth;
     public $phoneNumber;
 
@@ -34,7 +34,7 @@ class Member
 
         $this->username = $row['username'];
         $this->password = $row['password'];
-        $this->fullname = $row['fullName'];
+        $this->fullName = $row['fullName'];
         $this->birth = $row['birth'];
         $this->phoneNumber = $row['phoneNumber'];
 
@@ -47,7 +47,7 @@ class Member
 
         $this->username = htmlspecialchars(strip_tags($this->username));
         $this->password = htmlspecialchars(strip_tags($this->password));
-        $this->fullname = htmlspecialchars(strip_tags($this->fullname));
+        $this->fullName = htmlspecialchars(strip_tags($this->fullName));
         $this->birth = htmlspecialchars(strip_tags($this->birth));
         $this->phoneNumber = htmlspecialchars(strip_tags($this->phoneNumber));
 
@@ -74,7 +74,7 @@ class Member
 
         $this->username = htmlspecialchars(strip_tags($this->username));
         $this->password = htmlspecialchars(strip_tags($this->password));
-        $this->fullname = htmlspecialchars(strip_tags($this->fullname));
+        $this->fullName = htmlspecialchars(strip_tags($this->fullName));
         $this->birth = htmlspecialchars(strip_tags($this->birth));
         $this->phoneNumber = htmlspecialchars(strip_tags($this->phoneNumber));
 

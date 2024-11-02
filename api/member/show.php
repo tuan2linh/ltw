@@ -9,21 +9,43 @@ $db = new db();
 $connect = $db->connect();
 
 $middleware = new Middleware($connect);
-$middleware->checkAdmin();
 
-$member = new Member($connect);
+if($middleware->checkMember()){
+    $member = new Member($connect);
 
-$member->memberId = isset($_GET['memberId']) ? $_GET['memberId'] : die();
+    $member->memberId = $middleware->getId();
+    
+    $member->show();
+    
+    $member_arr = array(
+        'memberId' => $member->memberId,
+        'username' => $member->username,
+        'password' => $member->password,
+        'fullName' => $member->fullName,
+        'birth' => $member->birth,
+        'phoneNumber' => $member->phoneNumber
+    );
+    
+    print_r(json_encode($member_arr));
+}
+else{
+    $middleware->checkAdmin();
 
-$member->show();
+    $member = new Member($connect);
 
-$member_arr = array(
+    $member->memberId = isset($_GET['memberId']) ? $_GET['memberId'] : die();
+
+    $member->show();
+
+    $member_arr = array(
     'memberId' => $member->memberId,
     'username' => $member->username,
     'password' => $member->password,
-    'fullname' => $member->fullname,
+    'fullName' => $member->fullName,
     'birth' => $member->birth,
     'phoneNumber' => $member->phoneNumber
-);
+    );
 
-print_r(json_encode($member_arr));
+    print_r(json_encode($member_arr));
+}
+

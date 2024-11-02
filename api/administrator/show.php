@@ -21,7 +21,7 @@ $administrator_arr = array(
     'adminId' => $administrator->adminId,
     'username' => $administrator->username,
     'password' => $administrator->password,
-    'fullname' => $administrator->fullName,
+    'fullName' => $administrator->fullName,
     'birth' => $administrator->birth,
     'phoneNumber' => $administrator->phoneNumber
 );

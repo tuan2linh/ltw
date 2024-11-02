@@ -25,7 +25,7 @@ if ($result->rowCount() > 0) {
             'adminId' => $adminId,
             'username' => $username,
             'password' => $password,
-            'fullname' => $fullName,
+            'fullName' => $fullName,
             'birth' => $birth,
             'phoneNumber' => $phoneNumber
         );

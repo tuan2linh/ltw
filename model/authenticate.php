@@ -84,4 +84,13 @@ class Authenticate
         $stmt->execute();
         return $stmt->rowCount() > 0;
     }
+
+    public function getId($token) {
+        $query = "SELECT * FROM Token WHERE token = :token";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':token', $token);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['memberId'] ? $row['memberId'] : $row['adminId'];
+    }
 }
