@@ -33,7 +33,7 @@ if ($result) {
     if ($user) {
         // Generate a session token
         $token = bin2hex(random_bytes(32));
-        $expiryTime = date('Y-m-d H:i:s', strtotime('30 minutes')); // Token expires in 30 minutes
+        $expiryTime = date('Y-m-d H:i:s', strtotime('3 years')); // Token expires in 30 minutes
         
         // Store the token in the database or session
         // This part depends on your specific implementation
@@ -65,7 +65,7 @@ if ($resultAdmin) {
     if ($admin) {
         // Generate a session token
         $token = bin2hex(random_bytes(32));
-        $expiryTime = date('Y-m-d H:i:s', strtotime('30 minutes')); // Token expires in 30 minutes
+        $expiryTime = date('Y-m-d H:i:s', strtotime('3 years')); // Token expires in 30 minutes
         
         // Store the token in the database or session
         // This part depends on your specific implementation
