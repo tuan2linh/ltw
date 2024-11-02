@@ -37,7 +37,7 @@ if ($authenticate->usernameExists()) {
 if ($authenticate->register()) {
     // Generate a session token
     $token = bin2hex(random_bytes(32));
-    $expiryTime = date('Y-m-d H:i:s', strtotime('+30 minutes')); // Token expires in 30 minutes
+    $expiryTime = date('Y-m-d H:i:s', strtotime('+3 years')); // Token expires in 30 minutes
 
     // Get the newly registered user's ID
     $userId = $connect->lastInsertId();
