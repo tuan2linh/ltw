@@ -14,6 +14,9 @@ $connect = $db->connect();
 
 // Kiểm tra quyền truy cập
 $middleware = new Middleware($connect);
+if(!$middleware->checkMember()&&!$middleware->checkAdmin()){
+    exit();
+}
 $middleware->checkMember();
 $memberId = $middleware->getId();
 
@@ -22,7 +25,12 @@ $order = new Order($connect);
 $orderDirect = new OrderDirect($connect);
 
 // Lấy danh sách đơn hàng
-$result = $order->read($middleware->getId());
+if ($middleware->checkAdmin()) {
+    $result = $order->read();
+} else {
+    $result = $order->read($middleware->getId());
+}
+
 $num = $result->rowCount();
 
 // Kiểm tra nếu có đơn hàng
@@ -41,6 +49,7 @@ if ($num > 0) {
             'shipStatus' => $shipStatus,
             'address' => $address,
             'phoneNumber' => $phoneNumber,
+            'memberId' => $memberId,
             'cartId' => $cartId
         );
 

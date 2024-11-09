@@ -6,6 +6,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 include_once '../../config/db.php';
 include_once '../../model/feedback.php';
 include_once '../../middleware/middleware.php';
+include_once '../../model/action.php';
 
 $db = new db();
 $connect = $db->connect();
@@ -23,6 +24,11 @@ $feedback->comment = $data->comment;
 $feedback->rating = $data->rating;
 
 if ($feedback->create()) {
+    $action = new Action($connect);
+    $action->logCreateRating();
+    if ($feedback->rating >= 4) {
+        $action->logRatingGood();
+    }
     echo json_encode(
         array('message' => 'Feedback created')
     );

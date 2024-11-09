@@ -8,6 +8,7 @@ include_once '../../config/db.php';
 include_once '../../model/authenticate.php';
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 include_once '../../model/cart.php';
+include_once '../../model/action.php';
 
 $db = new db();
 $connect = $db->connect();
@@ -49,6 +50,9 @@ if ($authenticate->register()) {
         $cart->memberId = $userId;
     
         $cartCreated = $cart->create();
+
+        $action = new Action($connect);
+        $action->logCreateUser();
         
         echo json_encode(array(
             'message' => 'User registered successfully' . ($cartCreated ? ' with cart' : ''),

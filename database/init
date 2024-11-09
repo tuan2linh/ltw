@@ -125,6 +125,22 @@ CREATE TABLE OrderDirect (
     FOREIGN KEY (productId) REFERENCES Product(productId)
 );
 
+CREATE TABLE Action (
+    actionId INT AUTO_INCREMENT PRIMARY KEY,
+    action ENUM(
+        'create_user',
+        'create_product', 
+        'product_buy',
+        'create_order',
+        'order_success',
+        'create_rating',
+        'rating_good'
+    ),
+    count INT DEFAULT 0,
+    date DATE,
+    UNIQUE KEY action_date (action, date)
+);
+
 -- Add explicit foreign key constraints
 ALTER TABLE OrderDirect
 ADD CONSTRAINT fk_order_direct_order

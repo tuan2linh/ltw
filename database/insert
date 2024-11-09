@@ -118,3 +118,12 @@ INSERT INTO OrderDirect (orderId, productId, quantity) VALUES
 (2, 4, 1),  -- Order 2 has 1 of Product 4
 (2, 5, 2),  -- Order 2 has 2 of Product 5
 (2, 6, 1);  -- Order 2 has 1 of Product 6
+
+INSERT INTO Action (action, count, date) VALUES
+('create_user', 0, CURDATE()),
+('create_product', 0, CURDATE()),
+('product_buy', 0, CURDATE()),
+('create_order', 0, CURDATE()),
+('order_success', 0, CURDATE()),
+('create_rating', 0, CURDATE()),
+('rating_good', 0, CURDATE());

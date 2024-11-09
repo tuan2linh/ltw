@@ -1,6 +1,8 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+// header("Access-Control-Allow-Credentials: true");
 include_once '../../config/db.php';
 include_once '../../model/member.php';
 include_once '../../middleware/middleware.php';

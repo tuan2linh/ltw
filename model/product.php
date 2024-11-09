@@ -39,27 +39,36 @@ class Product
 
     public function create()
     {
-        $query = 'INSERT INTO Product SET productId = :productId, productName = :productName, price = :price, image = :image, description = :description';
-        $stmt = $this->conn->prepare($query);
+        try {
+            // Remove productId from INSERT since it's auto-increment
+            $query = 'INSERT INTO Product 
+                     (productName, price, image, description) 
+                     VALUES 
+                     (:productName, :price, :image, :description)';
+            
+            $stmt = $this->conn->prepare($query);
 
-        $this->productName = htmlspecialchars(strip_tags($this->productName));
-        $this->price = htmlspecialchars(strip_tags($this->price));
-        $this->image = htmlspecialchars(strip_tags($this->image));
-        $this->description = htmlspecialchars(strip_tags($this->description));
+            // Sanitize inputs
+            $this->productName = htmlspecialchars(strip_tags($this->productName));
+            $this->price = htmlspecialchars(strip_tags($this->price));
+            $this->image = htmlspecialchars(strip_tags($this->image));
+            $this->description = htmlspecialchars(strip_tags($this->description));
 
-        $stmt->bindParam(':productId', $this->productId);
-        $stmt->bindParam(':productName', $this->productName);
-        $stmt->bindParam(':price', $this->price);
-        $stmt->bindParam(':image', $this->image);
-        $stmt->bindParam(':description', $this->description);
+            // Bind parameters
+            $stmt->bindParam(':productName', $this->productName);
+            $stmt->bindParam(':price', $this->price);
+            $stmt->bindParam(':image', $this->image);
+            $stmt->bindParam(':description', $this->description);
 
-        if ($stmt->execute()) {
-            return true;
+            if ($stmt->execute()) {
+                return true;
+            }
+
+            throw new Exception($stmt->errorInfo()[2]);
+        } catch (PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            throw new Exception("Database error occurred");
         }
-
-        printf("Error: %s.\n", $stmt->error);
-
-        return false;
     }
 
     public function update()

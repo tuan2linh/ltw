@@ -8,6 +8,7 @@ include_once '../../model/order.php';
 include_once '../../middleware/middleware.php';
 include_once '../../model/member.php';
 include_once '../../model/orderDirect.php';
+include_once '../../model/action.php';
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 $db = new db();
@@ -100,6 +101,17 @@ if ($orderId !== null) {
         }
 
         if ($productsCreated) {
+            $totalQuantity =0;
+            foreach ($createdProducts as $product) {
+                $totalQuantity += $product['quantity'];
+            }
+            $action = new Action($connect);
+
+            for ($i = 0; $i < $totalQuantity; $i++) {
+                $action->logProductBuy();
+            }
+            $action->logCreateOrder();
+
             $response['products'] = $createdProducts;
         } else {
             $response['message'] .= ' but failed to add some products';

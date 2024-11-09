@@ -1,7 +1,7 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
-
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 include_once '../../config/db.php';
 include_once '../../model/order.php';
 include_once '../../model/orderDirect.php';
@@ -12,8 +12,21 @@ $connect = $db->connect();
 
 // Check authentication
 $middleware = new Middleware($connect);
-$middleware->checkMember();
-$memberId = $middleware->getId();
+if(!$middleware->checkMember()&&!$middleware->checkAdmin()){
+    exit();
+}
+
+if($middleware->checkMember())
+{
+    $memberId = $middleware->getId();
+}
+else{
+    if(!isset($_GET['memberId'])){
+        echo json_encode(array('message' => 'Missing Member ID'));
+        exit();
+    }
+    $memberId = $_GET['memberId'];
+}
 
 // Get and validate orderId
 if (!isset($_GET['orderId'])) {

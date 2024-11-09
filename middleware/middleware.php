@@ -29,19 +29,20 @@ class Middleware {
     public function checkAdmin() {
         $token = $this->getTokenFromHeaders();
         if (!$token) {
-            echo json_encode(array('message' => 'Token not provided'));
-            return false;
+            echo json_encode(array('message1' => 'Token not provided'));
+            // return false;
             exit();
         }
 
         if (!$this->verifyToken($token)) {
-            echo json_encode(array('message' => 'Invalid or expired token'));
-            return false;
+            echo json_encode(array('message1' => 'Invalid or expired token'));
+            // return false;
             exit();
         }
 
         if (!$this->isAdmin($token)) {
-            echo json_encode(array('message' => 'Not an admin'));
+            return false;
+            echo json_encode(array('message1' => 'Not an admin'));
             return false;
             exit();
         }
@@ -50,18 +51,21 @@ class Middleware {
     public function checkMember() {
         $token = $this->getTokenFromHeaders();
         if (!$token) {
-            echo json_encode(array('message' => 'Token not provided'));
+            echo json_encode(array('message2' => 'Token not provided'));
+            return false;
             exit();
         }
 
         if (!$this->verifyToken($token)) {
-            echo json_encode(array('message' => 'Invalid or expired token'));
+            echo json_encode(array('message2' => 'Invalid or expired token'));
+            return false;
             exit();
         }
 
         if (!$this->isMember($token)) {
             return false;
-            echo json_encode(array('message' => 'Not an member'));
+            echo json_encode(array('message2' => 'Not an member'));
+            return false;
             exit();
         }
         return true;
