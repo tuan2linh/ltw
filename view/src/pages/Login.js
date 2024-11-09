@@ -28,16 +28,31 @@ const Login = () => {
       if (res?.data?.message !== "Login successful") {
         showToast.error(res?.data?.message);
       } else {
-        showToast.success("Login successful");
-        console.log(res.data.member.id);
-        const userData = {
-          id: res.data.member.id,
-          username: res.data.member.username,
-          role: res.data.role,
-          token: res.data.token,
-        };
-        dispatch(loginSuccess(userData));
-        navigate("/");
+        if (res.data.role === "admin") {
+          const adminData = {
+            id: res.data.admin.id,
+            username: res.data.admin.username,
+            role: res.data.role,
+            token: res.data.token,
+          };
+          dispatch(loginSuccess(adminData));
+          showToast.success(res.data.message);
+          setTimeout(() => {
+            navigate('/admins', { replace: true });
+          }, 100);
+        }
+        else {
+          showToast.success("Login successful");
+          console.log(res.data.member.id);
+          const userData = {
+            id: res.data.member.id,
+            username: res.data.member.username,
+            role: res.data.role,
+            token: res.data.token,
+          };
+          dispatch(loginSuccess(userData));
+          navigate("/");
+        }
       }
     }).catch(error => {
       showToast.error("Login failed");

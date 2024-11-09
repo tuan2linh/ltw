@@ -14,6 +14,16 @@ import Register from "./pages/Register";
 import About from "./pages/About";
 import OrderList from "./pages/OrderList";
 import Profile from "./pages/Profile";
+
+
+//admin
+import Admin from "./Admin/Admin";
+import ManageUser from './Admin/User/ManageUser';
+import ManageProduct from './Admin/Product/ManageProduct';
+import DashBoard from './Admin/DashBoard/DashBoard';
+import ManagerOrder from './Admin/Order/ManagerOrder';
+import ManageFeedback from './Admin/Feedback/ManagerFeedBack';
+import LoginAdmin from './Admin/Auth/Login'
 function App() {
   return (
     <BrowserRouter>
@@ -24,10 +34,20 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/order" element={<Order />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/orders" element={<OrderList />} />
         <Route path="/profile" element={<Profile />} />
+
+        {/* admin */}
+        <Route path="/admins" element={<Admin />}>
+          <Route index element={<DashBoard />} />
+          <Route path="manage-users" element={<ManageUser />} />
+          <Route path="manage-products" element={<ManageProduct />} />
+          <Route path="manage-orders" element={<ManagerOrder />} />
+          <Route path="manage-feedback" element={<ManageFeedback />} />
+        </Route>
+        <Route path="/login-admin" element={<LoginAdmin />} />
+        <Route path="/login" element={<Login />} />
 
       </Routes>
 
