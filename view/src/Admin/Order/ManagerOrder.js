@@ -52,7 +52,7 @@ const ManagerOrder = () => {
     const filteredOrders = sortedOrders.filter((order) => {
         const searchLower = search.toLowerCase();
         return (
-            order.orderId.toLowerCase().includes(searchLower) ||
+            order.orderId.toString().toLowerCase().includes(searchLower) ||
             order.Reciever.toLowerCase().includes(searchLower) ||
             order.phoneNumber.toLowerCase().includes(searchLower) ||
             order.address.toLowerCase().includes(searchLower)  

@@ -21,7 +21,7 @@ const ManageFeedback = (props) => {
     const filteredProducts = products.filter(product => {
         const searchLower = search.toLowerCase();
         return (
-            product.productId?.toLowerCase().includes(searchLower) ||
+            product.productId?.toString().toLowerCase().includes(searchLower) ||
             product.productName?.toLowerCase().includes(searchLower)
         );
     });
