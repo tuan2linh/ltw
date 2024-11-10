@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import { getAllFeedbacks } from '../admin-general/services/apiService';
 
 function ModealDetailFeedback(props) {
@@ -15,12 +13,10 @@ function ModealDetailFeedback(props) {
 
     const fetchFeedbacks = async () => {
         let res = await getAllFeedbacks();
-        console.log(res);
         if (res && res.feedbacks) {
             const filteredFeedbacks = res.feedbacks.filter(
                 feedback => feedback.productId === props.id
             );
-            console.log(filteredFeedbacks);
             setFeedbacks(filteredFeedbacks);
         }
     };
@@ -35,56 +31,82 @@ function ModealDetailFeedback(props) {
                 </svg>
             </button>
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Đánh giá cho sản phẩm {props.id}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {feedbacks.length > 0 ? (
-                        feedbacks.map((feedback, index) => (
-                            <div key={index} className="border-b p-4">
-                                {/* First row - User ID and Rating */}
-                                <div className="grid grid-cols-2 gap-4 mb-2">
-                                    <div className="flex items-center">
-                                        <span className="font-medium">User ID: {feedback.memberId}</span>
-                                    </div>
-                                    <div className="flex items-center justify-end">
-                                        {[1, 2, 3, 4, 5].map((star) => (
-                                            <svg
-                                                key={star}
-                                                className="w-4 h-4 inline"
-                                                viewBox="0 0 14 13"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z"
-                                                    fill={star <= feedback.rating ? "#facc15" : "#CED5D8"}
-                                                />
+            {show && (
+                <>
+                    <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
+                    <div className="fixed inset-0 z-10 overflow-y-auto">
+                        <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                            <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                                {/* Modal Header */}
+                                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                                    <div className="flex items-center justify-between pb-4">
+                                        <h3 className="text-lg font-semibold">Đánh giá cho sản phẩm {props.id}</h3>
+                                        <button
+                                            onClick={handleClose}
+                                            className="text-gray-400 hover:text-gray-500"
+                                        >
+                                            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                                             </svg>
-                                        ))}
+                                        </button>
+                                    </div>
+
+                                    {/* Modal Body */}
+                                    <div className="space-y-4">
+                                        {feedbacks.length > 0 ? (
+                                            feedbacks.map((feedback, index) => (
+                                                <div key={index} className="border-b p-4">
+                                                    {/* First row - User ID and Rating */}
+                                                    <div className="grid grid-cols-2 gap-4 mb-2">
+                                                        <div className="flex items-center">
+                                                            <span className="font-medium">User ID: {feedback.memberId}</span>
+                                                        </div>
+                                                        <div className="flex items-center justify-end">
+                                                            {[1, 2, 3, 4, 5].map((star) => (
+                                                                <svg
+                                                                    key={star}
+                                                                    className="w-4 h-4 inline"
+                                                                    viewBox="0 0 14 13"
+                                                                    fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                    <path
+                                                                        d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z"
+                                                                        fill={star <= feedback.rating ? "#facc15" : "#CED5D8"}
+                                                                    />
+                                                                </svg>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                    <textarea 
+                                                        className="w-full mt-2 p-2 bg-gray-50 rounded border border-gray-200" 
+                                                        value={feedback.comment}
+                                                        readOnly
+                                                        rows="2"
+                                                    />
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <p>No feedbacks available for this product.</p>
+                                        )}
+                                    </div>
+
+                                    {/* Modal Footer */}
+                                    <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                                        <button
+                                            type="button"
+                                            onClick={handleClose}
+                                            className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                                        >
+                                            Đóng
+                                        </button>
                                     </div>
                                 </div>
-                                
-                                {/* Second row - Comment */}
-                                <textarea 
-                                    className="w-full mt-2 p-2 bg-gray-50 rounded border border-gray-200" 
-                                    value={feedback.comment}
-                                    readOnly
-                                    rows="2"
-                                />
                             </div>
-                        ))
-                    ) : (
-                        <p>No feedbacks available for this product.</p>
-                    )}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+                        </div>
+                    </div>
+                </>
+            )}
         </>
     );
 }
