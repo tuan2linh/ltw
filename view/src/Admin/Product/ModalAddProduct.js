@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { addNewProduct } from '../admin-general/services/apiService';
+import { addNewProduct , postNewAction } from '../admin-general/services/apiService';
 import { toast } from 'react-toastify';
 
-const ModalAddProduct = () => {
+const ModalAddProduct = (props) => {
     const [show, setShow] = useState(false);
     const [formData, setFormData] = useState({
         productName: '',
@@ -11,10 +11,28 @@ const ModalAddProduct = () => {
         description: '',
         imageUrl: ''
     });
+    const [prevFormData, setPrevFormData] = useState({
+        productName: '',
+        price: '',
+        description: '',
+        imageUrl: ''
+    });
+
     const [previewImage, setPreviewImage] = useState('');
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () => {
+        setShow(false);
+        setPrevFormData({
+            productName: '',
+            price: '',
+            description: '',
+            imageUrl: ''
+        });
+    }
+    const handleShow = () => {
+        setShow(true)
+        setPrevFormData(formData);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,10 +48,11 @@ const ModalAddProduct = () => {
     };
 
     const handleSubmit = async () => {
-        // TODO: Add validation and API call
+        let changeContent = `Thêm sản phẩm mới có tên là ${formData.productName}`;
         console.log(formData);
         let response = await addNewProduct(formData);
         if (response && response.status) {
+                await handleCreateAdminAction(changeContent);
                 toast.success('Thêm sản phẩm thành công');
                 setFormData({
                     productName: '',
@@ -47,6 +66,17 @@ const ModalAddProduct = () => {
             toast.error(response.message);
         }
         handleClose();
+    };
+
+    const handleCreateAdminAction = async (action) => {
+        const dataAdd = {
+            adminId: props.adminId,
+            action: action
+        };
+        let data = await postNewAction(dataAdd);
+        if (data && data.message === 'Action created') {
+            console.log('Action created');
+        };
     };
 
     return (

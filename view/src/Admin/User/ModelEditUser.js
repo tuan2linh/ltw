@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { getUserById, putUpdateUser } from '../admin-general/services/apiService';
+import { getUserById, putUpdateUser, postNewAction } from '../admin-general/services/apiService';
 import { toast } from 'react-toastify';
 
 const ModelEditUser = (props) => {
@@ -11,9 +11,26 @@ const ModelEditUser = (props) => {
         birth: '',
         phoneNumber: ''
     });
+    const [prevFormData, setPrevFormData] = useState({
+        username: '',
+        fullName: '',
+        birth: '',
+        phoneNumber: ''
+    });
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () => {
+        setShow(false);
+        setPrevFormData({
+            username: '',
+            fullName: '',
+            birth: '',
+            phoneNumber: ''
+        })
+    }
+    const handleShow = () => {
+        setShow(true);
+        setPrevFormData(formData);
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -44,19 +61,44 @@ const ModelEditUser = (props) => {
     };
 
     const handleSubmit = async () => {
+        let changeContent = '';
+        if (formData.birth !== prevFormData.birth) {
+            changeContent += `Thay đổi ngày sinh người dùng ${formData.username} từ ${prevFormData.birth} thành ${formData.birth}\n`;
+        }
+        if (formData.fullName !== prevFormData.fullName) {
+            changeContent += `Thay đổi họ tên người dùng ${formData.username} từ ${prevFormData.fullName} thành ${formData.fullName}\n`;
+        }
+        if (formData.phoneNumber !== prevFormData.phoneNumber) {
+            changeContent += `Thay đổi số điện thoại người dùng ${formData.username} từ ${prevFormData.phoneNumber} thành ${formData.phoneNumber}\n`;
+        }
         let data = await putUpdateUser(props.id, formData);
         if (data && data.message === 'Member updated successfully') {
-            toast.success('Cập nhật sản phẩm thành công');
+            if (changeContent !== '') {
+                console.log(changeContent);
+                await handleCreateAdminAction(changeContent);
+            }
+            toast.success('Cập nhật người dùng thành công');
             fetchData();
             await props.refreshUsers();
         };
         handleClose();
     };
 
+    const handleCreateAdminAction = async (action) => {
+        const dataAdd = {
+            adminId: props.adminId,
+            action: action
+        };
+        let data = await postNewAction(dataAdd);
+        if (data && data.message === 'Action created') {
+            console.log('Action created');
+        };
+    };
+
     return (
         <>
-            <button class="mr-4" title="Edit" onClick={handleShow}>
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 fill-blue-500 hover:fill-blue-700"
+            <button className="mr-4" title="Edit" onClick={handleShow}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 fill-blue-500 hover:fill-blue-700"
                     viewBox="0 0 348.882 348.882">
                     <path
                         d="m333.988 11.758-.42-.383A43.363 43.363 0 0 0 304.258 0a43.579 43.579 0 0 0-32.104 14.153L116.803 184.231a14.993 14.993 0 0 0-3.154 5.37l-18.267 54.762c-2.112 6.331-1.052 13.333 2.835 18.729 3.918 5.438 10.23 8.685 16.886 8.685h.001c2.879 0 5.693-.592 8.362-1.76l52.89-23.138a14.985 14.985 0 0 0 5.063-3.626L336.771 73.176c16.166-17.697 14.919-45.247-2.783-61.418zM130.381 234.247l10.719-32.134.904-.99 20.316 18.556-.904.99-31.035 13.578zm184.24-181.304L182.553 197.53l-20.316-18.556L294.305 34.386c2.583-2.828 6.118-4.386 9.954-4.386 3.365 0 6.588 1.252 9.082 3.53l.419.383c5.484 5.009 5.87 13.546.861 19.03z"
@@ -69,7 +111,7 @@ const ModelEditUser = (props) => {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Thêm sản phẩm mới</Modal.Title>
+                    <Modal.Title>Chi tiết/ Sửa thông tin người dùng</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="space-y-4">
@@ -79,7 +121,8 @@ const ModelEditUser = (props) => {
                                 type="text"
                                 name="username"
                                 value={formData.username}
-                                onChange={handleChange}
+                                readOnly
+                                disabled
                                 className="mt-1 px-4 py-2 w-full bg-gray-50 border border-gray-200 rounded-lg text-sm focus:border-purple-500 focus:bg-white hover:bg-gray-100 outline-none transition-colors duration-200"
                             />
                         </div>

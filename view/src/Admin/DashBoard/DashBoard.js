@@ -72,14 +72,14 @@ const DashBoard = (props) => {
 
     return (
         <div className="flex flex-wrap justify-center gap-4">
-            <div class="bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full max-w-sm rounded-lg overflow-hidden mx-auto font-[sans-serif] mt-4">
-                <div class="min-h-[256px]">
-                    <img src="https://readymadeui.com/Imagination.webp" class="w-full" />
+            <div className="bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full max-w-sm rounded-lg overflow-hidden mx-auto font-[sans-serif] mt-4">
+                <div className="min-h-[256px]">
+                    <img src="https://readymadeui.com/Imagination.webp" className="w-full" />
                 </div>
 
-                <div class="p-6">
-                    <h3 class="text-gray-800 text-xl font-bold">Khách hàng</h3>
-                    <p class="mt-4 text-sm text-gray-500 leading-relaxed">
+                <div className="p-6">
+                    <h3 className="text-gray-800 text-xl font-bold">Khách hàng</h3>
+                    <p className="mt-4 text-sm text-gray-500 leading-relaxed">
                         Tổng số khách hàng: {totalUser} <br />
                         Số khách hàng đăng ký hôm nay: {totalNewUser} <br />
                         Quản lý thông tin khách hàng
@@ -88,18 +88,18 @@ const DashBoard = (props) => {
                         <br />
                     </p>
                     <button type="button"
-                        class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
+                        className="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
                         onClick={() => handleView('/admins/manage-users')}>Chi tiết</button>
                 </div>
             </div>
-            <div class="bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full max-w-sm rounded-lg overflow-hidden mx-auto font-[sans-serif] mt-4">
-                <div class="min-h-[256px]">
-                    <img src="https://readymadeui.com/Imagination.webp" class="w-full" />
+            <div className="bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full max-w-sm rounded-lg overflow-hidden mx-auto font-[sans-serif] mt-4">
+                <div className="min-h-[256px]">
+                    <img src="https://readymadeui.com/Imagination.webp" className="w-full" />
                 </div>
 
-                <div class="p-6">
-                    <h3 class="text-gray-800 text-xl font-bold">Sản phẩm</h3>
-                    <p class="mt-4 text-sm text-gray-500 leading-relaxed">
+                <div className="p-6">
+                    <h3 className="text-gray-800 text-xl font-bold">Sản phẩm</h3>
+                    <p className="mt-4 text-sm text-gray-500 leading-relaxed">
                         Tổng số sản phẩm: {totalProduct} <br />
                         Số sản phẩm mới hôm nay: {totalNewProduct} <br />
                         Số sản phẩm được mua trong ngày : {totalProductBuy} <br />
@@ -107,18 +107,18 @@ const DashBoard = (props) => {
                         <br />
                     </p>
                     <button type="button"
-                        class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
+                        className="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
                         onClick={() => handleView('/admins/manage-products')} >Chi tiết</button>
                 </div>
             </div>
-            <div class="bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full max-w-sm rounded-lg overflow-hidden mx-auto font-[sans-serif] mt-4">
-                <div class="min-h-[256px]">
-                    <img src="https://readymadeui.com/Imagination.webp" class="w-full" />
+            <div className="bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full max-w-sm rounded-lg overflow-hidden mx-auto font-[sans-serif] mt-4">
+                <div className="min-h-[256px]">
+                    <img src="https://readymadeui.com/Imagination.webp" className="w-full" />
                 </div>
 
-                <div class="p-6">
-                    <h3 class="text-gray-800 text-xl font-bold">Đơn hàng</h3>
-                    <p class="mt-4 text-sm text-gray-500 leading-relaxed">
+                <div className="p-6">
+                    <h3 className="text-gray-800 text-xl font-bold">Đơn hàng</h3>
+                    <p className="mt-4 text-sm text-gray-500 leading-relaxed">
                         Tổng số đơn hàng: {totalOrder} <br />
                         Số đơn hàng hôm nay: {totalNewOrder} <br />
                         Số đơn hàng đã giao hôm nay: {totalOrderDelivered} <br />
@@ -126,19 +126,19 @@ const DashBoard = (props) => {
                         Quản lý thông tin đơn hàng
                     </p>
                     <button type="button"
-                        class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
+                        className="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
                         onClick={() => handleView('/admins/manage-orders')}
                     >Chi tiết</button>
                 </div>
             </div>
-            <div class="bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full max-w-sm rounded-lg overflow-hidden mx-auto font-[sans-serif] mt-4">
-                <div class="min-h-[256px]">
-                    <img src="https://readymadeui.com/Imagination.webp" class="w-full" />
+            <div className="bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full max-w-sm rounded-lg overflow-hidden mx-auto font-[sans-serif] mt-4">
+                <div className="min-h-[256px]">
+                    <img src="https://readymadeui.com/Imagination.webp" className="w-full" />
                 </div>
 
-                <div class="p-6">
-                    <h3 class="text-gray-800 text-xl font-bold">Đánh giá sản phẩm</h3>
-                    <p class="mt-4 text-sm text-gray-500 leading-relaxed">
+                <div className="p-6">
+                    <h3 className="text-gray-800 text-xl font-bold">Đánh giá sản phẩm</h3>
+                    <p className="mt-4 text-sm text-gray-500 leading-relaxed">
                         Tổng số đánh giá: {totalReview} <br />
                         Số đánh giá mới hôm nay: {totalNewReview} <br />
                         Số đánh giá tốt: {totalGoodReview} <br />
@@ -146,7 +146,7 @@ const DashBoard = (props) => {
                         Quản lý thông tin đánh giá
                     </p>
                     <button type="button"
-                        class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
+                        className="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
                         onClick={() => handleView('/admins/manage-feedback')}
                     >Chi tiết</button>
                 </div>

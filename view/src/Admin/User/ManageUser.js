@@ -2,8 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import { getAllUsers, getAllOrders } from '../admin-general/services/apiService';
 import { useState, useEffect } from 'react';
 import ModelEditUser from './ModelEditUser';
+import { useSelector } from "react-redux";
 
 const ManageUser = (props) => {
+    const adminId = useSelector(state => state.auth.id);
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [orders, setOrders] = useState([]);
@@ -216,6 +218,7 @@ const ManageUser = (props) => {
                                     <ModelEditUser
                                         id={user.memberId}
                                         refreshUsers={refreshUsers}
+                                        adminId={adminId}
                                     />
                                     <button className="mr-4" title="Delete">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="w-5 fill-red-500 hover:fill-red-700" viewBox="0 0 24 24">

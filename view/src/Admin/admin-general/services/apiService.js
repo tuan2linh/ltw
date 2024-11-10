@@ -34,15 +34,6 @@ const getAllUsers = () => {
     return axios.get("/api/member/read.php");
 }
 
-// const putUpdateUser = (id, username, role, image) => {
-//     const data = new FormData();
-//     data.append("id", id);
-//     data.append("username", username);
-//     data.append("role", role);
-//     data.append("userImage", image);
-//     return axios.put('/api/v1/participant', data);
-// }
-
 const deleteUser = (id) => {
     return axios.delete('/api/v1/participant', { data: { id: id } });
 }
@@ -102,6 +93,17 @@ const getAllFeedbacks = () => {
     return axios.get('/api/feedback/read.php');
 }
 
+// admin history
+const getAllAdminHistory = () => {
+    return axios.get('/api/adminActionHistory/read.php');
+}
+const postNewAction = (data) => {
+    return axios.post('/api/adminActionHistory/create.php', data);
+}
+
+const getAllAdmin = () => {
+    return axios.get('/api/administrator/read.php');
+}
 
 export {
     postCreateNewUser,
@@ -121,5 +123,8 @@ export {
     getUserById,
     getOrderById,
     putUpdateOrder,
-    getAllFeedbacks
+    getAllFeedbacks,
+    getAllAdminHistory,
+    getAllAdmin,
+    postNewAction
 };  

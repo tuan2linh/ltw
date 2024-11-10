@@ -29,9 +29,12 @@ const Header = (pros) => {
             setActiveTab('products');
         } else if (location.pathname.includes('/admins/manage-orders')) {
             setActiveTab('orders');
-        } else if (location.pathname.includes('/admins/reviews')) {
+        } else if (location.pathname.includes('/admins/manage-feedback')) {
             setActiveTab('reviews');
-        } else {
+        }else if (location.pathname.includes('/admins/admin-history')) {
+            setActiveTab('');
+        }
+         else {
             setActiveTab('dashboard');
         }
     }, [location.pathname]);
@@ -42,6 +45,9 @@ const Header = (pros) => {
     const handleView = (path, tab) => {
         setActiveTab(tab);
         navigate(path);
+        if(tab === 'admin-history'){
+            handleToggle();
+        }
     };
 
     const handleLogin = () => {
@@ -64,7 +70,7 @@ const Header = (pros) => {
         <>
             <header className='flex shadow-sm py-3 px-4 sm:px-10 bg-white font-[sans-serif] min-h-[70px] tracking-wide relative z-50'>
                 <div className='flex flex-wrap items-center justify-between lg:gap-y-4 gap-y-6 gap-x-4 w-full'>
-                    <a href="javascript:void(0)"><img src="https://readymadeui.com/readymadeui.svg" alt="logo" className='w-36' />
+                    <a href="#"><img src="https://readymadeui.com/readymadeui.svg" alt="logo" className='w-36' />
                     </a>
 
                     <div id="collapseMenu"
@@ -81,21 +87,21 @@ const Header = (pros) => {
                         </button>
 
                         <ul
-                            className='lg:flex lg:gap-x-10 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-2/3 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-4 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50'>
+                            className='lg:flex lg:gap-x-10 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-2/3 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-4 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50 pt-3'>
                             <li className={`max-lg:border-b max-lg:py-3 max-lg:px-3 relative lg:after:absolute lg:after:bg-black ${activeTab === 'dashboard' ? 'lg:after:w-full' : 'lg:after:w-0'} lg:after:h-[2px] lg:after:block lg:after:top-6 lg:after:transition-all lg:after:duration-300`}>
-                                <a href='javascript:void(0)' className='text-black block text-[15px]' onClick={() => handleView('/admins', 'dashboard')}>Bảng điều khiển</a>
+                                <a href='#' className='text-black block text-[15px] no-underline flex items-center' onClick={() => handleView('/admins', 'dashboard')}>Bảng điều khiển</a>
                             </li>
                             <li className={`max-lg:border-b max-lg:py-3 max-lg:px-3 relative lg:after:absolute lg:after:bg-black ${activeTab === 'users' ? 'lg:after:w-full' : 'lg:after:w-0'} lg:after:h-[2px] lg:after:block lg:after:top-6 lg:after:transition-all lg:after:duration-300`}>
-                                <a href='javascript:void(0)' className='text-black block text-[15px]' onClick={() => handleView('/admins/manage-users', 'users')}>Người dùng</a>
+                                <a href='#' className='text-black block text-[15px] no-underline flex items-center' onClick={() => handleView('/admins/manage-users', 'users')}>Người dùng</a>
                             </li>
                             <li className={`max-lg:border-b max-lg:py-3 max-lg:px-3 relative lg:after:absolute lg:after:bg-black ${activeTab === 'products' ? 'lg:after:w-full' : 'lg:after:w-0'} lg:after:h-[2px] lg:after:block lg:after:top-6 lg:after:transition-all lg:after:duration-300`}>
-                                <a href='javascript:void(0)' className='text-black block text-[15px]' onClick={() => handleView('/admins/manage-products', 'products')}>Sản phẩm</a>
+                                <a href='#' className='text-black block text-[15px] no-underline flex items-center' onClick={() => handleView('/admins/manage-products', 'products')}>Sản phẩm</a>
                             </li>
                             <li className={`max-lg:border-b max-lg:py-3 max-lg:px-3 relative lg:after:absolute lg:after:bg-black ${activeTab === 'orders' ? 'lg:after:w-full' : 'lg:after:w-0'} lg:after:h-[2px] lg:after:block lg:after:top-6 lg:after:transition-all lg:after:duration-300`}>
-                                <a href='javascript:void(0)' className='text-black block text-[15px]' onClick={() => handleView('/admins/manage-orders', 'orders')}>Đơn hàng</a>
+                                <a href='#' className='text-black block text-[15px] no-underline flex items-center' onClick={() => handleView('/admins/manage-orders', 'orders')}>Đơn hàng</a>
                             </li>
                             <li className={`max-lg:border-b max-lg:py-3 max-lg:px-3 relative lg:after:absolute lg:after:bg-black ${activeTab === 'reviews' ? 'lg:after:w-full' : 'lg:after:w-0'} lg:after:h-[2px] lg:after:block lg:after:top-6 lg:after:transition-all lg:after:duration-300`}>
-                                <a href='javascript:void(0)' className='text-black block text-[15px]' onClick={() => handleView('/admins/manage-feedback', 'reviews')}>Đánh giá sản phẩm</a>
+                                <a href='#' className='text-black block text-[15px] no-underline flex items-center' onClick={() => handleView('/admins/manage-feedback', 'reviews')}>Đánh giá sản phẩm</a>
                             </li>
                         </ul>
                     </div>
@@ -115,17 +121,19 @@ const Header = (pros) => {
                                         <h6 className="font-semibold text-[15px]">Welcome</h6>
                                         {isAuthenticated ?
                                             <>
-                                                <p className="text-sm text-gray-500 mt-1">{info?.username}</p>
+                                                <p className="text-2xl text-gray-500 mt-1">{info?.username}</p>
+                                                <ul className="space-y-1.5 pl-0">
+                                                    <li><a href='#' className="text-sm text-gray-500 hover:text-black">Profile</a></li>
+                                                    <li><a href='#'
+                                                    onClick={() => handleView('admin-history', 'admin-history')}
+                                                    className="text-sm text-gray-500 hover:text-black">Admin History</a></li>
+                                                    <li><a href='#' className="text-sm text-gray-500 hover:text-black">Contact Us</a></li>
+                                                </ul>
+                                                <hr className="border-b-0 my-4" />
                                                 <button type='button'
                                                     onClick={handleLogout}
-                                                    className="bg-transparent border-2 border-gray-300 hover:border-black rounded px-4 py-2.5 mt-4 text-sm text-black font-semibold"
+                                                    className="bg-transparent border-2 border-gray-300 hover:border-black rounded px-4 py-2.5 mt-0 text-sm text-black font-semibold"
                                                     >LOG OUT</button>
-                                                <hr className="border-b-0 my-4" />
-                                                <ul className="space-y-1.5">
-                                                    <li><a href='javascript:void(0)' className="text-sm text-gray-500 hover:text-black">Profile</a></li>
-                                                    <li><a href='javascript:void(0)' className="text-sm text-gray-500 hover:text-black">Admin History</a></li>
-                                                    <li><a href='javascript:void(0)' className="text-sm text-gray-500 hover:text-black">Contact Us</a></li>
-                                                </ul>
                                             </>
                                             :
                                             <>
@@ -136,7 +144,7 @@ const Header = (pros) => {
                                                      >LOGIN
                                                     / SIGNUP</button>
                                                 <hr className="border-b-0 my-4" />
-                                                <li><a href='javascript:void(0)' className="text-sm text-gray-500 hover:text-black">Contact Us</a></li>
+                                                <li><a href='#' className="text-sm text-gray-500 hover:text-black">Contact Us</a></li>
 
                                             </>
                                         }

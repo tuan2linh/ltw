@@ -24,6 +24,7 @@ import DashBoard from './Admin/DashBoard/DashBoard';
 import ManagerOrder from './Admin/Order/ManagerOrder';
 import ManageFeedback from './Admin/Feedback/ManagerFeedBack';
 import LoginAdmin from './Admin/Auth/Login'
+import AdminHistory from "./Admin/AdminHistory/AdminHistory";
 function App() {
   return (
     <BrowserRouter>
@@ -45,6 +46,7 @@ function App() {
           <Route path="manage-products" element={<ManageProduct />} />
           <Route path="manage-orders" element={<ManagerOrder />} />
           <Route path="manage-feedback" element={<ManageFeedback />} />
+          <Route path="admin-history" element={<AdminHistory />} />
         </Route>
         <Route path="/login-admin" element={<LoginAdmin />} />
         <Route path="/login" element={<Login />} />

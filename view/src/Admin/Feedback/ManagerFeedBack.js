@@ -136,8 +136,8 @@ const ManageFeedback = (props) => {
     };
 
     return (
-        <div class="manage-product-container">
-            <div class="flex items-center justify-between pt-3 pb-3 pl-8">
+        <div className="manage-product-container">
+            <div className="flex items-center justify-between pt-3 pb-3 pl-8">
                 <div className="flex justify-center mb-0 pr-8">
                     <input type='text'
                         placeholder='Tìm kiếm sản phẩm'
@@ -149,14 +149,14 @@ const ManageFeedback = (props) => {
                         className='xl:w-96 max-lg:w-full lg:ml-10 max-md:mt-4 max-lg:ml-4 bg-gray-100 focus:bg-transparent px-6 rounded h-11 outline-[#333] text-sm transition-all' />
                 </div>
             </div>
-            <div class="overflow-x-auto font-[sans-serif] p-8 pt-3">
-                <table class="min-w-full bg-white">
-                    <thead class="bg-gray-100 whitespace-nowrap">
+            <div className="overflow-x-auto font-[sans-serif] p-8 pt-3">
+                <table className="min-w-full bg-white">
+                    <thead className="bg-gray-100 whitespace-nowrap">
                         <tr>
-                            <th class="p-4 text-left text-sm font-semibold text-black">
+                            <th className="p-4 text-left text-sm font-semibold text-black">
                                 ID
                             </th>
-                            <th class="p-4 text-left text-sm font-semibold text-black">
+                            <th className="p-4 text-left text-sm font-semibold text-black">
                                 Sản phẩm
                             </th>
                             <th onClick={() => handleSort('rating')} className="p-4 text-left text-sm font-semibold text-black cursor-pointer">
@@ -169,10 +169,10 @@ const ManageFeedback = (props) => {
                                         data-original="#000000" />
                                 </svg>
                             </th>
-                            <th class="p-4 text-left text-sm font-semibold text-black">
+                            <th className="p-4 text-left text-sm font-semibold text-black">
                                 Số Lượng Đáng Giá
                             </th>
-                            <th class="p-4 text-left text-sm font-semibold text-black">
+                            <th className="p-4 text-left text-sm font-semibold text-black">
                                 Hành động
                             </th>
                         </tr>
@@ -216,12 +216,12 @@ const ManageFeedback = (props) => {
                                 <td className="p-4 text-sm">
                                     {feedbacks.filter(feedback => feedback.productId === product.productId).length}
                                 </td>
-                                <td class="p-4">
+                                <td className="p-4">
                                     <ModealDetailFeedback  
                                     id = {product.productId}
                                     />
-                                    <button class="mr-4" title="Delete">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 fill-red-500 hover:fill-red-700" viewBox="0 0 24 24">
+                                    <button className="mr-4" title="Delete">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 fill-red-500 hover:fill-red-700" viewBox="0 0 24 24">
                                             <path
                                                 d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z"
                                                 data-original="#000000" />
@@ -235,17 +235,17 @@ const ManageFeedback = (props) => {
                     </tbody>
                 </table>
 
-                <div class="md:flex m-4">
-                    <p class="text-sm text-gray-500 flex-1">
+                <div className="md:flex m-4">
+                    <p className="text-sm text-gray-500 flex-1">
                         Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, filteredProducts.length)} of {filteredProducts.length} entries {search && `(filtered from ${products.length} total entries)`}
                     </p>
-                    <div class="flex items-center max-md:mt-4">
-                        <p class="text-sm text-gray-500">Display</p>
+                    <div className="flex items-center max-md:mt-4">
+                        <p className="text-sm text-gray-500">Display</p>
 
                         <select
                             value={itemsPerPage}
                             onChange={handleItemsPerPageChange}
-                            class="text-sm text-gray-500 border border-gray-400 rounded h-8 px-1 mx-4 outline-none"
+                            className="text-sm text-gray-500 border border-gray-400 rounded h-8 px-1 mx-4 outline-none"
                         >
                             <option value={5}>5</option>
                             <option value={10}>10</option>
@@ -254,12 +254,12 @@ const ManageFeedback = (props) => {
                             <option value={100}>100</option>
                         </select>
 
-                        <ul class="flex space-x-1 ml-4">
+                        <ul className="flex space-x-1 ml-4">
                             <li
                                 onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
-                                class={`flex items-center justify-center cursor-pointer ${currentPage === 1 ? 'bg-gray-100' : 'bg-gray-200'} w-8 h-8 rounded`}
+                                className={`flex items-center justify-center cursor-pointer ${currentPage === 1 ? 'bg-gray-100' : 'bg-gray-200'} w-8 h-8 rounded`}
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-gray-500" viewBox="0 0 55.753 55.753">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-3 fill-gray-500" viewBox="0 0 55.753 55.753">
                                     <path
                                         d="M12.745 23.915c.283-.282.59-.52.913-.727L35.266 1.581a5.4 5.4 0 0 1 7.637 7.638L24.294 27.828l18.705 18.706a5.4 5.4 0 0 1-7.636 7.637L13.658 32.464a5.367 5.367 0 0 1-.913-.727 5.367 5.367 0 0 1-1.572-3.911 5.369 5.369 0 0 1 1.572-3.911z"
                                         data-original="#000000" />
@@ -269,7 +269,7 @@ const ManageFeedback = (props) => {
                                 <li
                                     key={number}
                                     onClick={() => handlePageChange(number)}
-                                    class={`flex items-center justify-center cursor-pointer text-sm w-8 h-8 rounded
+                                    className={`flex items-center justify-center cursor-pointer text-sm w-8 h-8 rounded
                                         ${currentPage === number ? 'bg-[#007bff] text-white' : ''}`}
                                 >
                                     {number}
@@ -277,9 +277,9 @@ const ManageFeedback = (props) => {
                             ))}
                             <li
                                 onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
-                                class={`flex items-center justify-center cursor-pointer ${currentPage === totalPages ? 'bg-gray-100' : 'bg-gray-200'} w-8 h-8 rounded`}
+                                className={`flex items-center justify-center cursor-pointer ${currentPage === totalPages ? 'bg-gray-100' : 'bg-gray-200'} w-8 h-8 rounded`}
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-gray-500 rotate-180" viewBox="0 0 55.753 55.753">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-3 fill-gray-500 rotate-180" viewBox="0 0 55.753 55.753">
                                     <path
                                         d="M12.745 23.915c.283-.282.59-.52.913-.727L35.266 1.581a5.4 5.4 0 0 1 7.637 7.638L24.294 27.828l18.705 18.706a5.4 5.4 0 0 1-7.636 7.637L13.658 32.464a5.367 5.367 0 0 1-.913-.727 5.367 5.367 0 0 1-1.572-3.911 5.369 5.369 0 0 1 1.572-3.911z"
                                         data-original="#000000" />

@@ -35,22 +35,37 @@ class AdminActionHistory
 
     public function create()
     {
-        $query = 'INSERT INTO AdminAction_History SET actionId = :actionId, adminId = :adminId, action = :action';
-        $stmt = $this->conn->prepare($query);
+        try {
+            // Get current table count
+            $countQuery = "SELECT COUNT(*) as count FROM AdminAction_History";
+            $countStmt = $this->conn->prepare($countQuery);
+            $countStmt->execute();
+            $count = $countStmt->fetch(PDO::FETCH_ASSOC)['count'];
 
-        $this->action = htmlspecialchars(strip_tags($this->action));
+            // Set new actionId as count + 1
+            $this->actionId = $count + 1;
 
-        $stmt->bindParam(':actionId', $this->actionId);
-        $stmt->bindParam(':adminId', $this->adminId);
-        $stmt->bindParam(':action', $this->action);
+            // Insert with calculated actionId
+            $query = 'INSERT INTO AdminAction_History 
+                     SET actionId = :actionId, adminId = :adminId, action = :action';
+            $stmt = $this->conn->prepare($query);
 
-        if ($stmt->execute()) {
-            return true;
+            $this->action = htmlspecialchars(strip_tags($this->action));
+
+            $stmt->bindParam(':actionId', $this->actionId);
+            $stmt->bindParam(':adminId', $this->adminId);
+            $stmt->bindParam(':action', $this->action);
+
+            if ($stmt->execute()) {
+                return true;
+            }
+
+            throw new Exception($stmt->error);
+
+        } catch (Exception $e) {
+            printf("Error: %s.\n", $e->getMessage());
+            return false;
         }
-
-        printf("Error: %s.\n", $stmt->error);
-
-        return false;
     }
 
     public function update()
@@ -91,4 +106,3 @@ class AdminActionHistory
         return false;
     }
 }
-

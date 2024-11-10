@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import { getOrderById, putUpdateOrder } from '../admin-general/services/apiService';
+import { getOrderById, putUpdateOrder, postNewAction } from '../admin-general/services/apiService';
 import { toast } from 'react-toastify';
 import { address } from 'framer-motion/client';
 
@@ -26,9 +26,53 @@ const ModelEditOrder = (props) => {
         ],
         total: ''
     });
+    const [prevFormData, setPrevFormData] = useState({
+        orderId: '',
+        payStatus: '',
+        dayBooking: '',
+        Reciever: '',
+        shipStatus: '',
+        address: '',
+        phoneNumber: '',
+        memberId: '',
+        products: [
+            {
+                productName: '',
+                price: '',
+                quantity: '',
+                image: ''
+            }
+        ],
+        total: ''
+    });
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+
+    const handleClose = () => {
+        setShow(false)
+        setPrevFormData({
+            orderId: '',
+            payStatus: '',
+            dayBooking: '',
+            Reciever: '',
+            shipStatus: '',
+            address: '',
+            phoneNumber: '',
+            memberId: '',
+            products: [
+                {
+                    productName: '',
+                    price: '',
+                    quantity: '',
+                    image: ''
+                }
+            ],
+            total: ''
+        });
+    };
+    const handleShow = () => {
+        setShow(true);
+        setPrevFormData(formData);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -79,8 +123,28 @@ const ModelEditOrder = (props) => {
         else{
             type1 = 'unship';
         }
+
+        let changeContent = '';
+        if (prevFormData.address !== formData.address) {
+            changeContent += `Thay đổi địa chỉ của đơn hàng mã ${formData.orderId} từ ${prevFormData.address} thành ${formData.address}\n`;
+        }
+        if (prevFormData.phoneNumber !== formData.phoneNumber) {
+            changeContent += `Thay đổi số điện thoại của đơn hàng mã ${formData.orderId} từ ${prevFormData.phoneNumber} thành ${formData.phoneNumber}\n`;
+        }
+        if (prevFormData.payStatus !== formData.payStatus) {
+            changeContent += `Thay đổi trạng thái thanh toán của đơn hàng mã ${formData.orderId} từ ${prevFormData.payStatus} thành ${formData.payStatus}\n`;
+        }
+        if (prevFormData.shipStatus !== formData.shipStatus) {
+            changeContent += `Thay đổi trạng thái giao hàng của đơn hàng mã ${formData.orderId} từ ${prevFormData.shipStatus} thành ${formData.shipStatus}\n`;
+        }
+
         let data = await putUpdateOrder(props.id, type1, type2);
         if (data && data.message === 'Shipping status updated successfully') {
+            console.log(changeContent)
+            if (changeContent !== '') {
+                console.log(changeContent);
+                await handleCreateAdminAction(changeContent);
+            }
             toast.success('Cập nhật đơn hàng thành công');
             fetchData();
             await props.refreshOrders();
@@ -90,10 +154,20 @@ const ModelEditOrder = (props) => {
         }
         handleClose();
     };
+    const handleCreateAdminAction = async (action) => {
+        const dataAdd = {
+            adminId: props.adminId,
+            action: action
+        };
+        let data = await postNewAction(dataAdd);
+        if (data && data.message === 'Action created') {
+            console.log('Action created');
+        };
+    };
     return (
         <>
-            <button class="mr-4" title="Edit" onClick={handleShow}>
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 fill-blue-500 hover:fill-blue-700"
+            <button className="mr-4" title="Edit" onClick={handleShow}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 fill-blue-500 hover:fill-blue-700"
                     viewBox="0 0 348.882 348.882">
                     <path
                         d="m333.988 11.758-.42-.383A43.363 43.363 0 0 0 304.258 0a43.579 43.579 0 0 0-32.104 14.153L116.803 184.231a14.993 14.993 0 0 0-3.154 5.37l-18.267 54.762c-2.112 6.331-1.052 13.333 2.835 18.729 3.918 5.438 10.23 8.685 16.886 8.685h.001c2.879 0 5.693-.592 8.362-1.76l52.89-23.138a14.985 14.985 0 0 0 5.063-3.626L336.771 73.176c16.166-17.697 14.919-45.247-2.783-61.418zM130.381 234.247l10.719-32.134.904-.99 20.316 18.556-.904.99-31.035 13.578zm184.24-181.304L182.553 197.53l-20.316-18.556L294.305 34.386c2.583-2.828 6.118-4.386 9.954-4.386 3.365 0 6.588 1.252 9.082 3.53l.419.383c5.484 5.009 5.87 13.546.861 19.03z"

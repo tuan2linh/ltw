@@ -17,7 +17,6 @@ $adminActionHistory = new AdminActionHistory($connect);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$adminActionHistory->actionId = $data->actionId;
 $adminActionHistory->adminId = $data->adminId;
 $adminActionHistory->action = $data->action;
 
