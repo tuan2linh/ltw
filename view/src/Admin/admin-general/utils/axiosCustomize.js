@@ -4,7 +4,7 @@ import { store } from '../../../redux/store';
 
 
 const instance = axios.create({
-    baseURL: ' https://bengal-eminent-lamprey.ngrok-free.app/',
+    baseURL: ' https://bengal-eminent-lamprey.ngrok-free.app',
     headers: {
         'Content-Type': 'application/json',
         Accept: "application/json",
