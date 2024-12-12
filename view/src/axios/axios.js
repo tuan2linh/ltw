@@ -1,7 +1,7 @@
 import axios from "axios";
 import { store } from "../redux/store";
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || "https://api.example.com",
+  baseURL: process.env.REACT_APP_API_URL || "https://bengal-eminent-lamprey.ngrok-free.app",
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
