@@ -180,153 +180,169 @@ const ModelEditOrder = (props) => {
                 <>
                     <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
                     <div className="fixed inset-0 z-10 overflow-y-auto">
-                        <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                            <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                                {/* Modal Header */}
-                                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                    <div className="flex items-center justify-between pb-4">
+                        <div className="flex min-h-full items-start justify-center p-4 mt-16 sm:mt-20">
+                            <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all w-full sm:max-w-2xl max-h-[calc(100vh-8rem)] md:max-h-[calc(100vh-10rem)]">
+                                {/* Modal Header - Fixed at top */}
+                                <div className="sticky top-0 bg-white px-4 py-3 border-b z-10">
+                                    <div className="flex items-center justify-between">
                                         <h3 className="text-lg font-semibold">Chi tiết đơn hàng</h3>
-                                        <button
-                                            onClick={handleClose}
-                                            className="text-gray-400 hover:text-gray-500"
-                                        >
+                                        <button onClick={handleClose} className="text-gray-400 hover:text-gray-500">
                                             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                                             </svg>
                                         </button>
                                     </div>
+                                </div>
 
-                                    {/* Keep existing form content */}
-                                    <form className="space-y-4">
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700">Mã đơn hàng</label>
-                                            <input
-                                                type="text"
-                                                name="orderId"
-                                                value={formData.orderId}
-                                                readOnly
-                                                disabled
-                                                className="mt-1 px-4 py-2 w-full bg-gray-50 border border-gray-200 rounded-lg text-sm focus:border-purple-500 focus:bg-white hover:bg-gray-100 outline-none transition-colors duration-200"
-                                            />
+                                {/* Scrollable Content Area */}
+                                <div className="overflow-y-auto p-4 max-h-[calc(90vh-8rem)] md:max-h-[calc(85vh-8rem)]">
+                                    <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {/* Left Column - Order Details */}
+                                        <div className="space-y-3">
+                                            <div className="grid grid-cols-2 gap-3">
+                                                <div>
+                                                    <label className="block text-xs font-medium text-gray-700 mb-1">Mã đơn hàng</label>
+                                                    <input
+                                                        type="text"
+                                                        name="orderId"
+                                                        value={formData.orderId}
+                                                        readOnly
+                                                        disabled
+                                                        className="w-full px-3 py-2 bg-gray-50 border rounded-md text-sm"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-xs font-medium text-gray-700 mb-1">Mã thành viên</label>
+                                                    <input
+                                                        type="text"
+                                                        name="memberId"
+                                                        value={formData.memberId}
+                                                        readOnly
+                                                        disabled
+                                                        className="w-full px-3 py-2 bg-gray-50 border rounded-md text-sm"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="grid grid-cols-2 gap-3">
+                                                <div>
+                                                    <label className="block text-xs font-medium text-gray-700 mb-1">Người nhận</label>
+                                                    <input
+                                                        type="text"
+                                                        name="Reciever"
+                                                        value={formData.Reciever}
+                                                        readOnly
+                                                        disabled
+                                                        className="w-full px-3 py-2 bg-gray-50 border rounded-md text-sm"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-xs font-medium text-gray-700 mb-1">Ngày đặt</label>
+                                                    <input
+                                                        type="text"
+                                                        name="dayBooking"
+                                                        value={formData.dayBooking}
+                                                        readOnly
+                                                        disabled
+                                                        className="w-full px-3 py-2 bg-gray-50 border rounded-md text-sm"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="grid grid-cols-2 gap-3">
+                                                <div>
+                                                    <label className="block text-xs font-medium text-gray-700 mb-1">Trạng thái thanh toán</label>
+                                                    <select
+                                                        name="payStatus"
+                                                        onChange={handleChange}
+                                                        value={formData.payStatus}
+                                                        className="w-full px-3 py-2 border rounded-md text-sm"
+                                                    >
+                                                        <option value="Pending">Chưa thanh toán</option>
+                                                        <option value="Paid">Đã thanh toán</option>
+                                                    </select>
+                                                </div>
+                                                <div>
+                                                    <label className="block text-xs font-medium text-gray-700 mb-1">Trạng thái giao hàng</label>
+                                                    <select
+                                                        name="shipStatus"
+                                                        onChange={handleChange}
+                                                        value={formData.shipStatus}
+                                                        className="w-full px-3 py-2 border rounded-md text-sm"
+                                                    >
+                                                        <option value="Processing">Đang giao</option>
+                                                        <option value="Shipped">Đã giao</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div className="grid grid-cols-2 gap-3">
+                                                <div>
+                                                    <label className="block text-xs font-medium text-gray-700 mb-1">Số điện thoại</label>
+                                                    <input
+                                                        type="text"
+                                                        name="phoneNumber"
+                                                        value={formData.phoneNumber}
+                                                        onChange={handleChange}
+                                                        className="w-full px-3 py-2 border rounded-md text-sm"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-xs font-medium text-gray-700 mb-1">Địa chỉ</label>
+                                                    <input
+                                                        type="text"
+                                                        name="address"
+                                                        value={formData.address}
+                                                        onChange={handleChange}
+                                                        className="w-full px-3 py-2 border rounded-md text-sm"
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700">Người nhận</label>
-                                            <input
-                                                type="text"
-                                                name="Reciever"
-                                                value={formData.Reciever}
-                                                readOnly
-                                                disabled
-                                                className="mt-1 px-4 py-2 w-full bg-gray-50 border border-gray-200 rounded-lg text-sm focus:border-purple-500 focus:bg-white hover:bg-gray-100 outline-none transition-colors duration-200"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700">Ngày đặt</label>
-                                            <input
-                                                type="text"
-                                                name="dayBooking"
-                                                value={formData.dayBooking}
-                                                readOnly
-                                                disabled
-                                                className="mt-1 px-4 py-2 w-full bg-gray-50 border border-gray-200 rounded-lg text-sm focus:border-purple-500 focus:bg-white hover:bg-gray-100 outline-none transition-colors duration-200"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700">Địa chỉ</label>
-                                            <input
-                                                type="text"
-                                                name="address"
-                                                value={formData.address}
-                                                onChange={handleChange}
-                                                className="mt-1 px-4 py-2 w-full bg-gray-50 border border-gray-200 rounded-lg text-sm focus:border-purple-500 focus:bg-white hover:bg-gray-100 outline-none transition-colors duration-200"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700">Số điện thoại</label>
-                                            <input
-                                                type="text"
-                                                name="phoneNumber"
-                                                value={formData.phoneNumber}
-                                                onChange={handleChange}
-                                                className="mt-1 px-4 py-2 w-full bg-gray-50 border border-gray-200 rounded-lg text-sm focus:border-purple-500 focus:bg-white hover:bg-gray-100 outline-none transition-colors duration-200"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700">Trạng thái thanh toán</label>
-                                            <select
-                                                name="payStatus"
-                                                onChange={handleChange}
-                                                value={formData.payStatus}
-                                                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:border-purple-500 sm:text-sm"
-                                            >
-                                                <option value="Pending">Chưa thanh toán</option>
-                                                <option value="Paid">Đã thanh toán</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700">Trạng thái giao hàng</label>
-                                            <select
-                                                name="shipStatus"
-                                                onChange={handleChange}
-                                                value={formData.shipStatus}
-                                                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:border-purple-500 sm:text-sm"
-                                            >
-                                                <option value="Processing">Đang giao</option>
-                                                <option value="Shipped">Đã giao</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700">Mã thành viên</label>
-                                            <input
-                                                type="text"
-                                                name="memberId"
-                                                value={formData.memberId}
-                                                readOnly
-                                                disabled
-                                                className="mt-1 px-4 py-2 w-full bg-gray-50 border border-gray-200 rounded-lg text-sm focus:border-purple-500 focus:bg-white hover:bg-gray-100 outline-none transition-colors duration-200"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700">Sản phẩm</label>
-                                            <div className="grid grid-cols-4 gap-4">
+
+                                        {/* Right Column - Products */}
+                                        <div className="h-full">
+                                            <label className="block text-xs font-medium text-gray-700 mb-2">Sản phẩm</label>
+                                            <div className="space-y-2 overflow-y-auto max-h-[250px] pr-2 bg-gray-50 rounded-lg p-2">
                                                 {formData.products && formData.products.map((product, index) => (
-                                                    <div key={index} className="border border-gray-200 rounded-lg p-2">
-                                                        <img src={product.image} alt={product.productName} className="w-full h-20 object-cover" />
-                                                        <p className="text-sm font-medium text-gray-700">{product.productName}</p>
-                                                        <p className="text-sm font-medium text-gray-700">{product.price}</p>
-                                                        <p className="text-sm font-medium text-gray-700">{product.quantity}</p>
+                                                    <div key={index} className="flex items-center gap-3 p-2 bg-white rounded-lg shadow-sm">
+                                                        <img src={product.image} alt={product.productName} className="w-14 h-14 object-cover rounded" />
+                                                        <div className="flex-1 min-w-0">
+                                                            <p className="text-sm font-medium text-gray-900 truncate">{product.productName}</p>
+                                                            <div className="flex gap-4 text-xs text-gray-500">
+                                                                <span>Giá: {product.price}</span>
+                                                                <span>SL: {product.quantity}</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 ))}
                                             </div>
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700">Tổng tiền</label>
-                                            <input
-                                                type="text"
-                                                name="total"
-                                                value={formData.total}
-                                                readOnly
-                                                disabled
-                                                className="mt-1 px-4 py-2 w-full bg-gray-50 border border-gray-200 rounded-lg text-sm focus:border-purple-500 focus:bg-white hover:bg-gray-100 outline-none transition-colors duration-200"
-                                            />
+                                            <div className="mt-3 border-t pt-3">
+                                                <div className="flex justify-between items-center bg-white p-2 rounded-lg">
+                                                    <span className="text-sm font-medium text-gray-700">Tổng tiền:</span>
+                                                    <span className="text-lg font-semibold text-gray-900">{formData.total}</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </form>
+                                </div>
 
-                                    {/* Modal Footer */}
-                                    <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                        <button
-                                            type="button"
-                                            onClick={handleSubmit}
-                                            className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
-                                        >
-                                            Lưu
-                                        </button>
+                                {/* Modal Footer - Fixed at bottom */}
+                                <div className="sticky bottom-0 bg-gray-50 px-4 py-3 border-t">
+                                    <div className="flex justify-end gap-3">
                                         <button
                                             type="button"
                                             onClick={handleClose}
-                                            className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                                            className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
                                         >
                                             Hủy
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={handleSubmit}
+                                            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
+                                        >
+                                            Lưu thay đổi
                                         </button>
                                     </div>
                                 </div>

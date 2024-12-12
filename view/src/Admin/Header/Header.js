@@ -18,6 +18,7 @@ const Header = (pros) => {
     const location = useLocation();
     const [activeTab, setActiveTab] = useState('');
     const [toggle, setToggle] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -66,95 +67,133 @@ const Header = (pros) => {
         }
     };
 
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
     return (
         <>
-            <header className='flex shadow-sm py-3 px-4 sm:px-10 bg-white font-[sans-serif] min-h-[70px] tracking-wide relative z-50'>
+            <header className='flex shadow-lg py-3 px-3 sm:py-4 sm:px-10 bg-gradient-to-r from-white to-gray-50 font-[sans-serif] min-h-[70px] tracking-wide relative z-50'>
                 <div className='flex flex-wrap items-center justify-between lg:gap-y-4 gap-y-6 gap-x-4 w-full'>
-                    <a href="#"><img src="https://readymadeui.com/readymadeui.svg" alt="logo" className='w-36' />
+                    <a href="/admins" className="transition-transform hover:scale-105">
+                        <img src="/logo.png" alt="logo" className="h-[35px] sm:h-[45px]" />
                     </a>
 
-                    <div id="collapseMenu"
-                        className='max-lg:hidden lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-40 max-lg:before:inset-0 max-lg:before:z-50'>
-                        <button id="toggleClose" className='lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3'>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 fill-black" viewBox="0 0 320.591 320.591">
-                                <path
-                                    d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z"
-                                    data-original="#000000"></path>
-                                <path
-                                    d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z"
-                                    data-original="#000000"></path>
-                            </svg>
-                        </button>
+                    <div className={`lg:block ${isMobileMenuOpen ? 'block' : 'hidden'} fixed lg:relative inset-0 lg:inset-auto bg-white lg:bg-transparent z-[60]`}>
+                        <div className="lg:hidden flex justify-end p-4">
+                            <button onClick={toggleMobileMenu} className='rounded-full bg-gray-100 p-2'>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
 
-                        <ul
-                            className='lg:flex lg:gap-x-10 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-2/3 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-4 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50 pt-3'>
-                            <li className={`max-lg:border-b max-lg:py-3 max-lg:px-3 relative lg:after:absolute lg:after:bg-black ${activeTab === 'dashboard' ? 'lg:after:w-full' : 'lg:after:w-0'} lg:after:h-[2px] lg:after:block lg:after:top-6 lg:after:transition-all lg:after:duration-300`}>
-                                <a href='#' className='text-black block text-[15px] no-underline flex items-center' onClick={() => handleView('/admins', 'dashboard')}>Bảng điều khiển</a>
+                        <ul className='lg:flex lg:gap-x-8 max-lg:space-y-3 max-lg:p-6 lg:items-center'>
+                            <li className={`max-lg:border-b max-lg:py-2 relative group`}>
+                                <a href='#' 
+                                   className={`text-gray-700 block text-[15px] no-underline flex items-center hover:text-black transition-colors duration-300 ${activeTab === 'dashboard' ? 'font-semibold text-black' : ''}`} 
+                                   onClick={(e) => {
+                                       handleView('/admins', 'dashboard');
+                                       toggleMobileMenu();
+                                   }}>
+                                    Bảng điều khiển
+                                    <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-black transform origin-left transition-transform duration-300 ${activeTab === 'dashboard' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                                </a>
                             </li>
-                            <li className={`max-lg:border-b max-lg:py-3 max-lg:px-3 relative lg:after:absolute lg:after:bg-black ${activeTab === 'users' ? 'lg:after:w-full' : 'lg:after:w-0'} lg:after:h-[2px] lg:after:block lg:after:top-6 lg:after:transition-all lg:after:duration-300`}>
-                                <a href='#' className='text-black block text-[15px] no-underline flex items-center' onClick={() => handleView('/admins/manage-users', 'users')}>Người dùng</a>
+                            <li className={`max-lg:border-b max-lg:py-2 relative group`}>
+                                <a href='#' 
+                                   className={`text-gray-700 block text-[15px] no-underline flex items-center hover:text-black transition-colors duration-300 ${activeTab === 'users' ? 'font-semibold text-black' : ''}`} 
+                                   onClick={(e) => {
+                                       handleView('/admins/manage-users', 'users');
+                                       toggleMobileMenu();
+                                   }}>
+                                    Người dùng
+                                    <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-black transform origin-left transition-transform duration-300 ${activeTab === 'users' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                                </a>
                             </li>
-                            <li className={`max-lg:border-b max-lg:py-3 max-lg:px-3 relative lg:after:absolute lg:after:bg-black ${activeTab === 'products' ? 'lg:after:w-full' : 'lg:after:w-0'} lg:after:h-[2px] lg:after:block lg:after:top-6 lg:after:transition-all lg:after:duration-300`}>
-                                <a href='#' className='text-black block text-[15px] no-underline flex items-center' onClick={() => handleView('/admins/manage-products', 'products')}>Sản phẩm</a>
+                            <li className={`max-lg:border-b max-lg:py-2 relative group`}>
+                                <a href='#' 
+                                   className={`text-gray-700 block text-[15px] no-underline flex items-center hover:text-black transition-colors duration-300 ${activeTab === 'products' ? 'font-semibold text-black' : ''}`} 
+                                   onClick={(e) => {
+                                       handleView('/admins/manage-products', 'products');
+                                       toggleMobileMenu();
+                                   }}>
+                                    Sản phẩm
+                                    <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-black transform origin-left transition-transform duration-300 ${activeTab === 'products' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                                </a>
                             </li>
-                            <li className={`max-lg:border-b max-lg:py-3 max-lg:px-3 relative lg:after:absolute lg:after:bg-black ${activeTab === 'orders' ? 'lg:after:w-full' : 'lg:after:w-0'} lg:after:h-[2px] lg:after:block lg:after:top-6 lg:after:transition-all lg:after:duration-300`}>
-                                <a href='#' className='text-black block text-[15px] no-underline flex items-center' onClick={() => handleView('/admins/manage-orders', 'orders')}>Đơn hàng</a>
+                            <li className={`max-lg:border-b max-lg:py-2 relative group`}>
+                                <a href='#' 
+                                   className={`text-gray-700 block text-[15px] no-underline flex items-center hover:text-black transition-colors duration-300 ${activeTab === 'orders' ? 'font-semibold text-black' : ''}`} 
+                                   onClick={(e) => {
+                                       handleView('/admins/manage-orders', 'orders');
+                                       toggleMobileMenu();
+                                   }}>
+                                    Đơn hàng
+                                    <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-black transform origin-left transition-transform duration-300 ${activeTab === 'orders' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                                </a>
                             </li>
-                            <li className={`max-lg:border-b max-lg:py-3 max-lg:px-3 relative lg:after:absolute lg:after:bg-black ${activeTab === 'reviews' ? 'lg:after:w-full' : 'lg:after:w-0'} lg:after:h-[2px] lg:after:block lg:after:top-6 lg:after:transition-all lg:after:duration-300`}>
-                                <a href='#' className='text-black block text-[15px] no-underline flex items-center' onClick={() => handleView('/admins/manage-feedback', 'reviews')}>Đánh giá sản phẩm</a>
+                            <li className={`max-lg:border-b max-lg:py-2 relative group`}>
+                                <a href='#' 
+                                   className={`text-gray-700 block text-[15px] no-underline flex items-center hover:text-black transition-colors duration-300 ${activeTab === 'reviews' ? 'font-semibold text-black' : ''}`} 
+                                   onClick={(e) => {
+                                       handleView('/admins/manage-feedback', 'reviews');
+                                       toggleMobileMenu();
+                                   }}>
+                                    Đánh giá sản phẩm
+                                    <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-black transform origin-left transition-transform duration-300 ${activeTab === 'reviews' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                                </a>
                             </li>
                         </ul>
                     </div>
 
-                    <div className='flex items-center max-sm:ml-auto space-x-6'>
+                    <div className='flex items-center space-x-4 sm:space-x-6'>
                         <ul>
-                            <li
-                                className="relative px-1 after:absolute after:bg-black after:w-full after:h-[2px] after:block after:top-8 after:left-0 after:transition-all after:duration-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" className="cursor-pointer hover:fill-black"
-                                    viewBox="0 0 512 512" onClick={handleToggle}>
-                                    <path
-                                        d="M437.02 74.981C388.667 26.629 324.38 0 256 0S123.333 26.629 74.98 74.981C26.629 123.333 0 187.62 0 256s26.629 132.667 74.98 181.019C123.333 485.371 187.62 512 256 512s132.667-26.629 181.02-74.981C485.371 388.667 512 324.38 512 256s-26.629-132.667-74.98-181.019zM256 482c-66.869 0-127.037-29.202-168.452-75.511C113.223 338.422 178.948 290 256 290c-49.706 0-90-40.294-90-90s40.294-90 90-90 90 40.294 90 90-40.294 90-90 90c77.052 0 142.777 48.422 168.452 116.489C383.037 452.798 322.869 482 256 482z"
-                                        data-original="#000000" />
-                                </svg>
+                            <li className="relative">
+                                <button onClick={handleToggle} 
+                                        className="p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition-colors duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" 
+                                         className="cursor-pointer" viewBox="0 0 512 512">
+                                        <path
+                                            d="M437.02 74.981C388.667 26.629 324.38 0 256 0S123.333 26.629 74.98 74.981C26.629 123.333 0 187.62 0 256s26.629 132.667 74.98 181.019C123.333 485.371 187.62 512 256 512s132.667-26.629 181.02-74.981C485.371 388.667 512 324.38 512 256s-26.629-132.667-74.98-181.019zM256 482c-66.869 0-127.037-29.202-168.452-75.511C113.223 338.422 178.948 290 256 290c-49.706 0-90-40.294-90-90s40.294-90 90-90 90 40.294 90 90-40.294 90-90 90c77.052 0 142.777 48.422 168.452 116.489C383.037 452.798 322.869 482 256 482z"
+                                            data-original="#000000" />
+                                    </svg>
+                                </button>
                                 {toggle && (
-                                    <div className="bg-white z-20 shadow-md py-6 px-6 sm:min-w-[320px] max-sm:min-w-[250px] absolute right-0 top-10">
-                                        <h6 className="font-semibold text-[15px]">Welcome</h6>
-                                        {isAuthenticated ?
+                                    <div className="bg-white z-[70] shadow-lg rounded-lg py-4 sm:py-6 px-4 sm:px-6 w-[280px] sm:w-[320px] absolute right-0 top-12 border border-gray-100">
+                                        <h6 className="font-semibold text-[16px] text-gray-800">Welcome</h6>
+                                        {isAuthenticated ? (
                                             <>
-                                                <p className="text-2xl text-gray-500 mt-1">{info?.username}</p>
-                                                <ul className="space-y-1.5 pl-0">
-                                                    <li><a href='#' className="text-sm text-gray-500 hover:text-black">Profile</a></li>
-                                                    <li><a href='#'
-                                                    onClick={() => handleView('admin-history', 'admin-history')}
-                                                    className="text-sm text-gray-500 hover:text-black">Admin History</a></li>
-                                                    <li><a href='#' className="text-sm text-gray-500 hover:text-black">Contact Us</a></li>
+                                                <p className="text-2xl font-medium text-gray-700 mt-2">{info?.username}</p>
+                                                <ul className="space-y-2 pl-0 mt-4">
+                                                    <li><a href='#' className="text-sm text-gray-600 hover:text-black hover:pl-2 transition-all duration-300">Profile</a></li>
+                                                    <li><a href='#' onClick={() => handleView('admin-history', 'admin-history')} className="text-sm text-gray-600 hover:text-black hover:pl-2 transition-all duration-300">Admin History</a></li>
+                                                    <li><a href='#' className="text-sm text-gray-600 hover:text-black hover:pl-2 transition-all duration-300">Contact Us</a></li>
                                                 </ul>
-                                                <hr className="border-b-0 my-4" />
-                                                <button type='button'
-                                                    onClick={handleLogout}
-                                                    className="bg-transparent border-2 border-gray-300 hover:border-black rounded px-4 py-2.5 mt-0 text-sm text-black font-semibold"
-                                                    >LOG OUT</button>
+                                                <hr className="border-gray-200 my-4" />
+                                                <button type='button' onClick={handleLogout}
+                                                    className="w-full bg-gray-900 hover:bg-black text-white rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors duration-300">
+                                                    LOG OUT
+                                                </button>
                                             </>
-                                            :
+                                        ) : (
                                             <>
-                                                <p className="text-sm text-gray-500 mt-1">To access account and manage orders</p>
-                                                <button type='button'
-                                                    className="bg-transparent border-2 border-gray-300 hover:border-black rounded px-4 py-2.5 mt-4 text-sm text-black font-semibold"
-                                                     onClick={handleLogin}
-                                                     >LOGIN
-                                                    / SIGNUP</button>
-                                                <hr className="border-b-0 my-4" />
-                                                <li><a href='#' className="text-sm text-gray-500 hover:text-black">Contact Us</a></li>
-
+                                                <p className="text-sm text-gray-600 mt-2">To access account and manage orders</p>
+                                                <button type='button' onClick={handleLogin}
+                                                    className="w-full bg-gray-900 hover:bg-black text-white rounded-lg px-4 py-2.5 mt-4 text-sm font-semibold transition-colors duration-300">
+                                                    LOGIN / SIGNUP
+                                                </button>
+                                                <hr className="border-gray-200 my-4" />
+                                                <a href='#' className="text-sm text-gray-600 hover:text-black transition-colors duration-300">Contact Us</a>
                                             </>
-                                        }
+                                        )}
                                     </div>
                                 )}
                             </li>
                         </ul>
 
-                        <button id="toggleOpen" className='lg:hidden ml-7'>
-                            <svg className="w-7 h-7" fill="#000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <button onClick={toggleMobileMenu} className='lg:hidden p-1.5 sm:p-2 hover:bg-gray-100 rounded-full transition-colors duration-300'>
+                            <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="#000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd"
                                     d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
                                     clipRule="evenodd"></path>

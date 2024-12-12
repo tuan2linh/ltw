@@ -76,6 +76,9 @@ const getProductById = (id) => {
 const putUpdateProduct = (data) => {
     return axios.put('/api/product/update.php', data);
 }
+const deleteProduct = (id) => {
+    return axios.delete(`/api/product/delete.php?productId=${id}`);
+}
 
 // Order
 const getAllOrders = () => {
@@ -126,5 +129,6 @@ export {
     getAllFeedbacks,
     getAllAdminHistory,
     getAllAdmin,
-    postNewAction
+    postNewAction,
+    deleteProduct
 };  

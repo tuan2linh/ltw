@@ -136,9 +136,9 @@ const ManageFeedback = (props) => {
     };
 
     return (
-        <div className="manage-product-container">
-            <div className="flex items-center justify-between pt-3 pb-3 pl-8">
-                <div className="flex justify-center mb-0 pr-8">
+        <div className="p-2 md:p-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between p-2 md:p-8 gap-3">
+                <div className="w-full md:w-auto">
                     <input type='text'
                         placeholder='Tìm kiếm sản phẩm'
                         value={search}
@@ -146,10 +146,12 @@ const ManageFeedback = (props) => {
                             setSearch(e.target.value);
                             setCurrentPage(1);
                         }}
-                        className='xl:w-96 max-lg:w-full lg:ml-10 max-md:mt-4 max-lg:ml-4 bg-gray-100 focus:bg-transparent px-6 rounded h-11 outline-[#333] text-sm transition-all' />
+                        className='w-full md:w-96 bg-gray-100 focus:bg-transparent px-4 py-3 rounded-lg text-sm transition-all outline-none focus:ring-2 focus:ring-blue-500' />
                 </div>
             </div>
-            <div className="overflow-x-auto font-[sans-serif] p-8 pt-3">
+
+            {/* Desktop view - Table */}
+            <div className="hidden md:block min-w-full bg-white rounded-lg shadow overflow-hidden">
                 <table className="min-w-full bg-white">
                     <thead className="bg-gray-100 whitespace-nowrap">
                         <tr>
@@ -234,26 +236,76 @@ const ManageFeedback = (props) => {
                         ))}
                     </tbody>
                 </table>
+            </div>
 
-                <div className="md:flex m-4">
-                    <p className="text-sm text-gray-500 flex-1">
-                        Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, filteredProducts.length)} of {filteredProducts.length} entries {search && `(filtered from ${products.length} total entries)`}
+            {/* Mobile view - Cards */}
+            <div className="md:hidden space-y-4">
+                {getSortedProducts().slice(indexOfFirstItem, indexOfLastItem).map((product, index) => (
+                    <div key={product.id || index} className="bg-white p-4 rounded-lg shadow space-y-3">
+                        <div className="flex items-center space-x-3">
+                            <img src={product.image || 'default-image.jpg'}
+                                className="w-16 h-16 rounded-lg object-cover"
+                                alt={product.productName} />
+                            <div className="flex-1">
+                                <p className="font-medium text-sm">{product.productName}</p>
+                                <p className="text-xs text-gray-500">ID: {product.productId}</p>
+                                <div className="flex items-center mt-1">
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                        <svg key={star} className="w-4 h-4"
+                                            viewBox="0 0 14 13"
+                                            fill={star <= calculateProductRating(product.productId) ? "#facc15" : "#CED5D8"}>
+                                            <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z"/>
+                                        </svg>
+                                    ))}
+                                    <span className="ml-2 text-xs text-gray-500">
+                                        ({calculateProductRating(product.productId).toFixed(1)})
+                                    </span>
+                                </div>
+                                <p className="text-xs text-gray-600 mt-1">
+                                    {feedbacks.filter(feedback => feedback.productId === product.productId).length} đánh giá
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-end gap-2 pt-2 border-t">
+                            <ModealDetailFeedback id={product.productId} />
+                            <button className="mr-4" title="Delete">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 fill-red-500 hover:fill-red-700" viewBox="0 0 24 24">
+                                            <path
+                                                d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z"
+                                                data-original="#000000" />
+                                            <path d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z"
+                                                data-original="#000000" />
+                                        </svg>
+                            </button>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Pagination section - Make it more mobile friendly */}
+            <div className="flex flex-col gap-4 mt-4 md:flex-row md:items-center md:justify-between">
+                <div className="order-2 md:order-1 text-center md:text-left">
+                    <p className="text-xs text-gray-500">
+                        Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, filteredProducts.length)} of {filteredProducts.length} entries
                     </p>
-                    <div className="flex items-center max-md:mt-4">
-                        <p className="text-sm text-gray-500">Display</p>
+                </div>
 
+                <div className="order-1 md:order-2 flex flex-col md:flex-row items-center gap-4">
+                    <div className="flex items-center gap-2">
+                        <label className="text-xs text-gray-500">Hiển thị</label>
                         <select
                             value={itemsPerPage}
                             onChange={handleItemsPerPageChange}
-                            className="text-sm text-gray-500 border border-gray-400 rounded h-8 px-1 mx-4 outline-none"
+                            className="text-xs border rounded px-2 py-1 bg-white focus:ring-2 focus:ring-blue-500 outline-none"
                         >
                             <option value={5}>5</option>
                             <option value={10}>10</option>
                             <option value={20}>20</option>
-                            <option value={50}>50</option>
-                            <option value={100}>100</option>
                         </select>
+                    </div>
 
+                    <div className="flex justify-center gap-1">
                         <ul className="flex space-x-1 ml-4">
                             <li
                                 onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
